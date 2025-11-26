@@ -1,39 +1,38 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useOnboardingStore } from '@/features/onboarding/store/onboardingStore';
-import { WelcomeStep } from '@/features/onboarding/components/WelcomeStep';
-import { NameStep } from '@/features/onboarding/components/NameStep';
-import { ThemeStep } from '@/features/onboarding/components/ThemeStep';
+import { Slide1 } from '@/features/onboarding/components/Slide1';
+import { Slide2 } from '@/features/onboarding/components/Slide2';
+import { Slide3 } from '@/features/onboarding/components/Slide3';
+import { Slide4 } from '@/features/onboarding/components/Slide4';
 import { completeOnboarding } from '@/features/onboarding/useCases/completeOnboarding';
 
 export default function OnboardingPage() {
-    const { step, name, theme } = useOnboardingStore();
+    const { step } = useOnboardingStore();
 
     const handleComplete = async () => {
-        await completeOnboarding({ name, theme });
+        await completeOnboarding();
     };
 
-    // Apply theme dynamically
-    useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-    }, [theme]);
-
     return (
-        <div className="min-h-screen bg-base-200 flex items-center justify-center p-4">
-            <div className="card w-full max-w-lg bg-base-100 shadow-xl h-[500px]">
-                <div className="card-body">
-                    {step === 1 && <WelcomeStep />}
-                    {step === 2 && <NameStep />}
-                    {step === 3 && <ThemeStep onComplete={handleComplete} />}
+        <div className="min-h-screen bg-[var(--navy-dark)] flex flex-col items-center justify-center p-4">
+            <div className="w-full max-w-2xl h-[600px] flex flex-col">
+                <div className="flex-1 flex items-center justify-center">
+                    {step === 1 && <Slide1 />}
+                    {step === 2 && <Slide2 />}
+                    {step === 3 && <Slide3 />}
+                    {step === 4 && <Slide4 onComplete={handleComplete} />}
+                </div>
 
-                    <div className="flex justify-center mt-4">
-                        <ul className="steps">
-                            <li className={`step ${step >= 1 ? 'step-primary' : ''}`}>Welcome</li>
-                            <li className={`step ${step >= 2 ? 'step-primary' : ''}`}>Name</li>
-                            <li className={`step ${step >= 3 ? 'step-primary' : ''}`}>Theme</li>
-                        </ul>
-                    </div>
+                <div className="flex justify-center gap-2 py-8">
+                    {[1, 2, 3, 4].map((dot) => (
+                        <div
+                            key={dot}
+                            className={`w-2 h-2 rounded-full transition-all ${step >= dot ? 'bg-sky-blue w-8' : 'bg-navy-light'
+                                }`}
+                        />
+                    ))}
                 </div>
             </div>
         </div>
