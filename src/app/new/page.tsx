@@ -9,12 +9,39 @@ export default function NewConversationPage() {
     const [isGenerating, setIsGenerating] = useState(false);
 
     const handleGenerate = async () => {
+        if (!inputMessage.trim()) return;
+
         setIsGenerating(true);
-        // TODO: Integrate with Groq API
-        setTimeout(() => {
-            setGeneratedReply('Esta es una respuesta generada de ejemplo. Aquí se integrará la API de Groq.');
+        setGeneratedReply('');
+
+        try {
+            const response = await fetch('/api/conversation/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: inputMessage,
+                    // TODO: Agregar contexto del perfil seleccionado
+                    profileContext: undefined
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.details || 'Error al generar la respuesta');
+            }
+
+            const data = await response.json();
+            setGeneratedReply(data.reply);
+        } catch (error) {
+            console.error('Error:', error);
+            setGeneratedReply(
+                'Lo siento, hubo un error al generar la respuesta. Por favor, intenta de nuevo.'
+            );
+        } finally {
             setIsGenerating(false);
-        }, 1500);
+        }
     };
 
     const handleCopy = () => {
@@ -22,7 +49,7 @@ export default function NewConversationPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[var(--navy-dark)] p-4">
+        <div className="bg-[var(--navy-dark)] p-4">
             <div className="max-w-4xl mx-auto space-y-6">
                 <h1 className="text-3xl font-semibold text-gray-lighter">Nueva Conversación</h1>
 

@@ -5,7 +5,7 @@ import { User as UserIcon, Mail, Calendar } from 'lucide-react';
 
 export default function UserPage() {
     return (
-        <div className="min-h-screen bg-[var(--navy-dark)] p-4">
+        <div className="bg-[var(--navy-dark)] p-4">
             <div className="max-w-4xl mx-auto">
                 <h1 className="text-3xl font-semibold text-gray-lighter mb-6">Mi Perfil</h1>
 

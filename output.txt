@@ -1,0 +1,33 @@
+RESULTADOS DE PRUEBAS DE GENERACIÓN DE RESPUESTAS
+=================================================
+
+ESCENARIO: 1. Insulto/Ataque directo
+Mensaje Entrante: "Eres una inútil, no sirves para nada. Ojalá nunca te hubiera conocido."
+Contexto: "Ex-pareja abusiva. Contacto cero excepto emergencias."
+RESPUESTA GENERADA: "No responderé. Adiós."
+----------------------------------------
+
+ESCENARIO: 2. Manipulación emocional
+Mensaje Entrante: "No puedo creer que me hagas esto con todo lo que yo te he querido. Estoy muy deprimido por tu culpa."
+Contexto: "Relación tóxica pasada. El usuario quiere mantener distancia emocional."
+RESPUESTA GENERADA: "Entendido. No continuaré esta conversación."
+----------------------------------------
+
+ESCENARIO: 3. Solicitud de dato (Falta información)
+Mensaje Entrante: "¿A qué hora paso a buscar las cosas mañana?"
+Contexto: "Divorcio conflictivo."
+RESPUESTA GENERADA: "¿A qué hora quieres que pase mañana a recoger las cosas?"
+----------------------------------------
+
+ESCENARIO: 4. Solicitud de dato (Información en contexto)
+Mensaje Entrante: "¿A qué hora paso a buscar las cosas mañana?"
+Contexto: "Divorcio conflictivo. La entrega de cosas es siempre a las 18:00 en el parque."
+RESPUESTA GENERADA: "A las 18:00 en el parque."
+----------------------------------------
+
+ESCENARIO: 5. Intento de reabrir conversación
+Mensaje Entrante: "Solo quería saber cómo estás, hace mucho que no hablamos bien. ¿Podemos tomar un café?"
+Contexto: "Acosador. Orden de alejamiento moral (no legal aún). No se desea contacto."
+RESPUESTA GENERADA: "No, gracias. No deseo contacto."
+----------------------------------------
+

@@ -16,7 +16,7 @@ export default function OnboardingPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[var(--navy-dark)] flex flex-col items-center justify-center p-4">
+        <div className="bg-[var(--navy-dark)] flex flex-col items-center justify-center p-4">
             <div className="w-full max-w-2xl h-[600px] flex flex-col">
                 <div className="flex-1 flex items-center justify-center">
                     {step === 1 && <Slide1 />}

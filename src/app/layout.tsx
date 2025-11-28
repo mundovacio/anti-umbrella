@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="antialiased">
+      <body className="antialiased grid grid-rows-[1fr_auto]">
         <main className="pb-16">{children}</main>
         <BottomNav />
       </body>
