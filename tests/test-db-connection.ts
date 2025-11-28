@@ -1,8 +1,7 @@
-// index.ts
 // Query your database using the Prisma Client
 
 import 'dotenv/config'
-import { PrismaClient } from "./generated/prisma/client.js";
+import { PrismaClient } from "../generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const connectionString = process.env.DATABASE_URL;
@@ -32,4 +31,3 @@ main()
         await prisma.$disconnect();
         process.exit(1);
     });
-
