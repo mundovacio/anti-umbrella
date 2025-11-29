@@ -3,13 +3,15 @@
 @plugin "daisyui";
 
 :root {
-  --navy-dark: #0f172a;
-  --navy-medium: #1e293b;
-  --navy-light: #334155;
-  --gray-light: #cbd5e1;
+  --navy-dark: #020617;
+  --navy-medium: #0f172a;
+  --navy-light: #1e293b;
+  --gray-light: #94a3b8;
   --gray-lighter: #e2e8f0;
-  --sky-blue: #38bdf8;
-  --sky-blue-dark: #0ea5e9;
+  --sky-blue: #0ea5e9;
+  --sky-blue-dark: #0284c7;
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(15, 23, 42, 0.6);
 }
 
 @theme inline {
@@ -27,6 +29,22 @@ body {
   color: var(--gray-light);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-nav {
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--glass-border);
 }
 
 /* Smooth animations */
@@ -36,16 +54,16 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--navy-medium);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--navy-light);
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

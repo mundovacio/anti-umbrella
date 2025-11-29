@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="antialiased grid grid-rows-[1fr_auto]">
+      <body className="antialiased grid grid-rows-[1fr_auto] bg-gradient-to-b from-[var(--navy-dark)] to-[#0a192f] text-[var(--gray-light)]">
         <main className="pb-16">{children}</main>
         <BottomNav />
       </body>
