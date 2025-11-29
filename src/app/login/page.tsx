@@ -43,14 +43,14 @@ export default function LoginPage() {
             <div className="card bg-[var(--navy-medium)] shadow-xl w-full max-w-md">
                 <div className="card-body">
                     <h1 className="card-title text-2xl text-gray-lighter mb-2">
-                        🌂 Anti-Umbrella
+                        🌂 Umbrella
                     </h1>
                     <p className="text-gray-light text-sm mb-6">
                         Aplicación en fase de pruebas
                     </p>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
+                    <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+                        <div className='flex flex-col gap-1'>
                             <label className="label">
                                 <span className="label-text text-gray-lighter">Contraseña de acceso</span>
                             </label>

@@ -3,8 +3,8 @@ import "@/styles/globals.css";
 import { BottomNav } from "@/components/layout/BottomNav";
 
 export const metadata: Metadata = {
-  title: "Umbrella - Empathetic Communication Assistant",
-  description: "Manage difficult conversations with empathy and clarity",
+  title: "Umbrella",
+  description: "Manage difficult conversations for you",
 };
 
 export default function RootLayout({
