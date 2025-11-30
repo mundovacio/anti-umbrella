@@ -6,26 +6,34 @@ import { Slide1 } from '@/features/onboarding/components/Slide1';
 import { Slide2 } from '@/features/onboarding/components/Slide2';
 import { Slide3 } from '@/features/onboarding/components/Slide3';
 import { Slide4 } from '@/features/onboarding/components/Slide4';
+import { Slide5 } from '@/features/onboarding/components/Slide5';
 import { completeOnboarding } from '@/features/onboarding/useCases/completeOnboarding';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 
 export default function OnboardingPage() {
     const { step, setStep } = useOnboardingStore();
-    const [direction, setDirection] = useState(0);
     const [prevStep, setPrevStep] = useState(step);
 
-    useEffect(() => {
+    // Derive direction from step changes instead of using setState in useEffect
+    const direction = useMemo(() => {
         if (step > prevStep) {
-            setDirection(1);
+            setPrevStep(step);
+            return 1;
         } else if (step < prevStep) {
-            setDirection(-1);
+            setPrevStep(step);
+            return -1;
         }
-        setPrevStep(step);
+        return 0;
     }, [step, prevStep]);
 
+    const handleNext = () => {
+        setStep(step + 1);
+    };
+
     const handleComplete = async () => {
+        // This might not be needed if login redirects, but good to have as fallback
         await completeOnboarding();
     };
 
@@ -47,7 +55,7 @@ export default function OnboardingPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-[var(--navy-dark)] to-[#0a192f] flex flex-col items-center justify-center p-4 overflow-hidden">
+        <div className="bg-gradient-to-b from-[var(--navy-dark)] to-[#0a192f] flex flex-col items-center justify-center p-4 overflow-hidden">
             <div className="w-full max-w-2xl h-[600px] flex flex-col relative">
                 {/* Main Content Area with Glass Effect */}
                 <div className="flex-1 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative">
@@ -75,7 +83,8 @@ export default function OnboardingPage() {
                                 {step === 1 && <Slide1 />}
                                 {step === 2 && <Slide2 />}
                                 {step === 3 && <Slide3 />}
-                                {step === 4 && <Slide4 onComplete={handleComplete} />}
+                                {step === 4 && <Slide4 onComplete={handleNext} />}
+                                {step === 5 && <Slide5 onComplete={handleComplete} />}
                             </motion.div>
                         </AnimatePresence>
                     </div>
@@ -83,7 +92,7 @@ export default function OnboardingPage() {
 
                 {/* Navigation Dots */}
                 <div className="flex justify-center gap-4 py-8">
-                    {[1, 2, 3, 4].map((dot) => (
+                    {[1, 2, 3, 4, 5].map((dot) => (
                         <button
                             key={dot}
                             onClick={() => setStep(dot)}

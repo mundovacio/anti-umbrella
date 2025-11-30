@@ -31,7 +31,7 @@ export default function LoginPage() {
             } else {
                 setError(data.error || 'Contraseña incorrecta');
             }
-        } catch (err) {
+        } catch (_err) {
             setError('Error al autenticar');
         } finally {
             setLoading(false);
