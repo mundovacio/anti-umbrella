@@ -2,22 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { newVerification } from '@/actions/new-verification';
+import { newVerification } from '@/features/auth/actions/new-verification';
 import { motion } from 'framer-motion';
 
 export default function VerifyEmailClient() {
-    const [error, setError] = useState<string | undefined>();
-    const [success, setSuccess] = useState<string | undefined>();
     const searchParams = useSearchParams();
     const token = searchParams.get('token');
+    const [error, setError] = useState<string | undefined>(!token ? 'Missing token!' : undefined);
+    const [success, setSuccess] = useState<string | undefined>();
 
     useEffect(() => {
-        if (success || error) return;
-
-        if (!token) {
-            setError('Missing token!');
-            return;
-        }
+        if (success || error || !token) return;
 
         newVerification(token)
             .then((data) => {

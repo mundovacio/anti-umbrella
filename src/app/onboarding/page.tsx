@@ -10,23 +10,17 @@ import { Slide5 } from '@/features/onboarding/components/Slide5';
 import { completeOnboarding } from '@/features/onboarding/useCases/completeOnboarding';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
+
 
 export default function OnboardingPage() {
     const { step, setStep } = useOnboardingStore();
     const [prevStep, setPrevStep] = useState(step);
+    const direction = step > prevStep ? 1 : step < prevStep ? -1 : 0;
 
-    // Derive direction from step changes instead of using setState in useEffect
-    const direction = useMemo(() => {
-        if (step > prevStep) {
-            setPrevStep(step);
-            return 1;
-        } else if (step < prevStep) {
-            setPrevStep(step);
-            return -1;
-        }
-        return 0;
-    }, [step, prevStep]);
+    React.useEffect(() => {
+        setPrevStep(step);
+    }, [step]);
 
     const handleNext = () => {
         setStep(step + 1);

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
-import { logout } from '@/actions/logout';
+import { logout } from '@/features/auth/actions/logout';
 import { LogOut } from 'lucide-react';
 
 export const LogoutButton = () => {

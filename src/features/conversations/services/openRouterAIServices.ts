@@ -1,5 +1,5 @@
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
-import { streamText } from 'ai';
+import { streamText, type CoreMessage } from 'ai';
 
 // Inicializar OpenRouter con la API key
 const openrouter = createOpenRouter({
@@ -16,7 +16,7 @@ const DEFAULT_MODEL = 'x-ai/grok-4.1-fast:free';
  * @returns Texto de respuesta completo
  */
 export const getOpenRouterCompletion = async (
-    messages: any[],
+    messages: CoreMessage[],
     modelName: string = DEFAULT_MODEL
 ) => {
     const response = await streamText({

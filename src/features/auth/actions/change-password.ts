@@ -2,8 +2,8 @@
 
 import * as z from 'zod';
 import bcrypt from 'bcryptjs';
-import { prisma } from '@/lib/db';
-import { auth } from '@/auth';
+import { prisma } from '@/shared/lib/db';
+import { auth } from '@/features/auth/config/auth';
 
 const ChangePasswordSchema = z.object({
     currentPassword: z.string().min(1, {

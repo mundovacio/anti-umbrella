@@ -1,10 +1,10 @@
 import React, { useState, useTransition } from 'react';
 import { useOnboardingStore } from '../store/onboardingStore';
-import { register } from '@/actions/register';
-import { login } from '@/actions/login';
-import { motion } from 'framer-motion';
+import { register } from '@/features/auth/actions/register';
+import { login } from '@/features/auth/actions/login';
 
-export const Slide5 = ({ onComplete }: { onComplete: () => void }) => {
+
+export const Slide5 = ({ }: { onComplete: () => void }) => {
     const { prevStep } = useOnboardingStore();
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>('');

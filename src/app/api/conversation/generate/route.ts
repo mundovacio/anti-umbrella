@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOpenRouterCompletion } from '@/features/conversations/services/openRouterAIServices';
+import { type CoreMessage } from 'ai';
 
 export async function POST(request: NextRequest) {
     try {
@@ -23,14 +24,14 @@ export async function POST(request: NextRequest) {
             'Si el mensaje requiere definir un dato concreto (hora, lugar) y no lo tienes, PREGUNTA al usuario qué poner. ' +
             'No seas empático con el agresor, sé una barrera fría y educada.';
 
-        const systemMessage = {
+        const systemMessage: CoreMessage = {
             role: 'system',
             content: profileContext
                 ? `${baseInstructions}\n\nContexto adicional del caso: ${profileContext}`
                 : baseInstructions
         };
 
-        const userMessage = {
+        const userMessage: CoreMessage = {
             role: 'user',
             content: `He recibido este mensaje del agresor:\n\n"${message}"\n\nGenera una respuesta que cumpla con el objetivo de ser seca, corta, neutra y de cierre.`
         };

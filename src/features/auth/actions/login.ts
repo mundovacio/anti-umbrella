@@ -1,7 +1,7 @@
 'use server';
 
 import * as z from 'zod';
-import { signIn } from '@/auth';
+import { signIn } from '@/features/auth/config/auth';
 import { AuthError } from 'next-auth';
 
 const LoginSchema = z.object({

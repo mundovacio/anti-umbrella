@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
-import { changePassword } from '@/actions/change-password';
+import { changePassword } from '@/features/auth/actions/change-password';
 import { Lock } from 'lucide-react';
 
 export const ChangePasswordForm = () => {

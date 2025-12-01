@@ -1,7 +1,7 @@
 import React from 'react';
 import { User as UserIcon, Mail, Calendar } from 'lucide-react';
-import { auth } from '@/auth';
-import { prisma } from '@/lib/db';
+import { auth } from '@/features/auth/config/auth';
+import { prisma } from '@/shared/lib/db';
 import { redirect } from 'next/navigation';
 import { ChangePasswordForm } from '@/features/user/components/ChangePasswordForm';
 import { LogoutButton } from '@/features/user/components/LogoutButton';

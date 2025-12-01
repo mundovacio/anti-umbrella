@@ -2,9 +2,9 @@
 
 import * as z from 'zod';
 import bcrypt from 'bcryptjs';
-import { prisma } from '@/lib/db';
-import { generateVerificationToken } from '@/lib/tokens';
-import { sendVerificationEmail } from '@/lib/mail';
+import { prisma } from '@/shared/lib/db';
+import { generateVerificationToken } from '@/shared/lib/tokens';
+import { sendVerificationEmail } from '@/shared/lib/mail';
 
 const RegisterSchema = z.object({
     email: z.string().email({

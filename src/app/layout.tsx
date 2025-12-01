@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { BottomNav } from "@/components/layout/BottomNav";
+import { BottomNav } from "@/shared/components/layout/BottomNav";
 
 export const metadata: Metadata = {
   title: "Umbrella",

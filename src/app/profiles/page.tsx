@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 
 export default function ProfilesPage() {
-    const [profiles, setProfiles] = useState<any[]>([]);
+    const [profiles] = useState<unknown[]>([]);
     const [showForm, setShowForm] = useState(false);
 
     return (
