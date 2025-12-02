@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOpenRouterCompletion } from '@/features/conversations/services/openRouterAIServices';
-import { type CoreMessage } from 'ai';
+import { type ModelMessage } from 'ai';
 
 export async function POST(request: NextRequest) {
     try {
@@ -14,24 +14,26 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Construir el contexto del sistema basado en el perfil
         const baseInstructions =
-            'Actúas como un "paraguas" protector para víctimas de maltrato psicológico. ' +
+            'Actúas como un "paraguas" protector para víctimas de maltrato psicológico. Tú responderás por el usuario.' +
             'Tu objetivo es ayudar al usuario a responder a agresores (jefes autoritarios, ex-parejas, etc.) ' +
             'con los que está obligado a interactuar. ' +
             'Tus respuestas deben ser estrictamente: SECAS, CORTAS y NEUTRAS. ' +
-            'Nunca busques continuar la conversación. El objetivo es cortar el flujo de interacción y proteger al usuario. ' +
-            'Si el mensaje requiere definir un dato concreto (hora, lugar) y no lo tienes, PREGUNTA al usuario qué poner. ' +
-            'No seas empático con el agresor, sé una barrera fría y educada.';
+            'Nunca busques continuar la conversación; el objetivo es cortar el flujo de interacción y proteger al usuario de forma clara y concisa. ' +
+            'No entres nunca al debate ni a la provocación. ' +
+            'El tono debe sonar razonable y ser una barrera fría pero educada, eligiendo siempre la versión más breve. ' +
+            'Asegúrate de que las respuestas no puedan ser usadas en contra del usuario. ' +
+            'Si aplica, deja siempre constancia de la preocupación por el bienestar de los niños. ' +
+            'Si el mensaje requiere definir un dato concreto (hora, lugar) y no lo tienes, PREGUNTA al usuario qué poner.';
 
-        const systemMessage: CoreMessage = {
+        const systemMessage: ModelMessage = {
             role: 'system',
             content: profileContext
                 ? `${baseInstructions}\n\nContexto adicional del caso: ${profileContext}`
                 : baseInstructions
         };
 
-        const userMessage: CoreMessage = {
+        const userMessage: ModelMessage = {
             role: 'user',
             content: `He recibido este mensaje del agresor:\n\n"${message}"\n\nGenera una respuesta que cumpla con el objetivo de ser seca, corta, neutra y de cierre.`
         };
