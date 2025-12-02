@@ -81,7 +81,7 @@ export const Slide5 = ({ }: { onComplete: () => void }) => {
                     {isLogin ? 'Bienvenido de nuevo' : 'Crea tu cuenta'}
                 </h2>
                 <p className="text-gray-400 text-sm">
-                    {isLogin ? 'Ingresa tus credenciales para continuar.' : 'Para guardar tu progreso y personalizar tu experiencia.'}
+                    {isLogin ? 'Ingresa tus credenciales para continuar.' : 'Para poder guardar tus preferencias y conversaciones de una vez para otra.'}
                 </p>
             </div>
 
