@@ -2,21 +2,13 @@
 
 import { useState, useTransition } from 'react';
 import Link from 'next/link';
-import { login } from '@/features/auth/actions/login';
+import { reset } from '@/features/auth/actions/reset-password';
 
-export default function LoginPage() {
+export default function ResetPage() {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>('');
     const [success, setSuccess] = useState<string | undefined>('');
-
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+    const [email, setEmail] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -24,12 +16,14 @@ export default function LoginPage() {
         setSuccess('');
 
         startTransition(() => {
-            login(formData)
+            reset({ email })
                 .then((data) => {
                     if (data?.error) {
                         setError(data.error);
                     }
-                    // Success redirects automatically in the server action
+                    if (data?.success) {
+                        setSuccess(data.success);
+                    }
                 });
         });
     };
@@ -39,10 +33,10 @@ export default function LoginPage() {
             <div className="card shadow-xl w-full max-w-md bg-white/5 backdrop-blur-sm border border-white/10">
                 <div className="card-body">
                     <h1 className="card-title text-2xl text-gray-lighter mb-2 justify-center">
-                        🌂 Umbrella
+                        Recuperar Contraseña
                     </h1>
                     <p className="text-gray-light text-sm mb-6 text-center">
-                        Inicia sesión para continuar
+                        Ingresa tu correo para recibir las instrucciones
                     </p>
 
                     <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
@@ -52,9 +46,8 @@ export default function LoginPage() {
                             </label>
                             <input
                                 type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 className="input input-bordered w-full bg-white/5 border-white/10 focus:border-sky-blue text-white"
                                 placeholder="ejemplo@correo.com"
                                 required
@@ -62,30 +55,15 @@ export default function LoginPage() {
                             />
                         </div>
 
-                        <div className='flex flex-col gap-1'>
-                            <label className="label">
-                                <span className="label-text text-gray-lighter">Contraseña</span>
-                            </label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="input input-bordered w-full bg-white/5 border-white/10 focus:border-sky-blue text-white"
-                                placeholder="******"
-                                required
-                                disabled={isPending}
-                            />
-                            <label className="label">
-                                <Link href="/auth/reset" className="label-text-alt link link-hover text-sky-blue">
-                                    ¿Olvidaste tu contraseña?
-                                </Link>
-                            </label>
-                        </div>
-
                         {error && (
                             <div className="alert alert-error bg-red-900/20 border-red-800 text-red-300 text-sm py-2">
                                 <span>{error}</span>
+                            </div>
+                        )}
+
+                        {success && (
+                            <div className="alert alert-success bg-green-900/20 border-green-800 text-green-300 text-sm py-2">
+                                <span>{success}</span>
                             </div>
                         )}
 
@@ -97,17 +75,14 @@ export default function LoginPage() {
                             {isPending ? (
                                 <span className="loading loading-spinner"></span>
                             ) : (
-                                'Acceder'
+                                'Enviar correo'
                             )}
                         </button>
                     </form>
 
-                    <div className="divider text-gray-500">O</div>
-
-                    <div className="text-center text-sm text-gray-400">
-                        ¿No tienes una cuenta?{' '}
-                        <Link href="/register" className="text-sky-blue hover:underline">
-                            Regístrate
+                    <div className="text-center text-sm text-gray-400 mt-4">
+                        <Link href="/login" className="text-sky-blue hover:underline">
+                            Volver al inicio de sesión
                         </Link>
                     </div>
                 </div>

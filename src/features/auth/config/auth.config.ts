@@ -9,13 +9,16 @@ export const authConfig = {
             const isLoggedIn = !!auth?.user;
             const isOnOnboarding = nextUrl.pathname.startsWith('/onboarding');
             const isOnVerifyEmail = nextUrl.pathname.startsWith('/verify-email');
+            const isOnRegister = nextUrl.pathname.startsWith('/register');
+            const isOnLogin = nextUrl.pathname.startsWith('/login');
+            const isOnAuth = nextUrl.pathname.startsWith('/auth');
 
-            if (isOnOnboarding || isOnVerifyEmail) {
+            if (isOnOnboarding || isOnVerifyEmail || isOnRegister || isOnLogin || isOnAuth) {
                 if (isLoggedIn) {
-                    // If logged in and on onboarding, redirect to /new (or home)
+                    // If logged in and on auth pages, redirect to /new (or home)
                     return Response.redirect(new URL('/new', nextUrl));
                 }
-                return true; // Allow access to onboarding/verify-email if not logged in
+                return true; // Allow access if not logged in
             }
 
             if (!isLoggedIn) {

@@ -6,7 +6,6 @@ import { Slide1 } from '@/features/onboarding/components/Slide1';
 import { Slide2 } from '@/features/onboarding/components/Slide2';
 import { Slide3 } from '@/features/onboarding/components/Slide3';
 import { Slide4 } from '@/features/onboarding/components/Slide4';
-import { Slide5 } from '@/features/onboarding/components/Slide5';
 import { completeOnboarding } from '@/features/onboarding/useCases/completeOnboarding';
 
 import { motion, AnimatePresence } from 'framer-motion';
@@ -32,7 +31,6 @@ export default function OnboardingPage() {
     };
 
     const handleComplete = async () => {
-        // This might not be needed if login redirects, but good to have as fallback
         await completeOnboarding();
     };
 
@@ -82,8 +80,7 @@ export default function OnboardingPage() {
                                 {step === 1 && <Slide1 />}
                                 {step === 2 && <Slide2 />}
                                 {step === 3 && <Slide3 />}
-                                {step === 4 && <Slide4 onComplete={handleNext} />}
-                                {step === 5 && <Slide5 onComplete={handleComplete} />}
+                                {step === 4 && <Slide4 onComplete={handleComplete} />}
                             </motion.div>
                         </AnimatePresence>
                     </div>
@@ -91,7 +88,7 @@ export default function OnboardingPage() {
 
                 {/* Navigation Dots */}
                 <div className="flex justify-center gap-4 py-8">
-                    {[1, 2, 3, 4, 5].map((dot) => (
+                    {[1, 2, 3, 4].map((dot) => (
                         <button
                             key={dot}
                             onClick={() => setStep(dot)}
