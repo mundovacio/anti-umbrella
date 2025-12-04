@@ -61,7 +61,7 @@ export default function NewConversationPage() {
                     </p>
                 </header>
 
-                <div className="glass-panel rounded-3xl p-6 space-y-6 shadow-2xl">
+                <div className="rounded-3xl p-6 space-y-6 shadow-2xl">
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-300 ml-1">Mensaje Recibido</label>
                         <textarea
@@ -110,7 +110,7 @@ export default function NewConversationPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="glass-panel rounded-3xl p-6 border border-sky-blue/30 shadow-[0_0_30px_rgba(14,165,233,0.15)]"
+                            className="rounded-3xl p-6 border border-sky-blue/30 shadow-[0_0_30px_rgba(14,165,233,0.15)]"
                         >
                             <div className="flex justify-between items-start mb-4">
                                 <h2 className="text-lg font-semibold text-sky-blue flex items-center gap-2">

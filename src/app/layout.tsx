@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { BottomNav } from "@/shared/components/layout/BottomNav";
+import { DockNav } from "@/shared/components/layout/DockNav";
 
 export const metadata: Metadata = {
   title: "Umbrella",
@@ -14,9 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="antialiased grid grid-rows-[1fr_auto] bg-gradient-to-b from-[var(--navy-dark)] to-[#0a192f] text-[var(--gray-light)]">
+      <body className="antialiased grid grid-rows-[1fr_auto]">
         <main className="pb-16">{children}</main>
-        <BottomNav />
+        <DockNav />
       </body>
     </html>
   );
