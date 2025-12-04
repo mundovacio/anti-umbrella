@@ -39,8 +39,8 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[var(--navy-dark)] flex items-center justify-center p-4">
-            <div className="card bg-[var(--navy-medium)] shadow-xl w-full max-w-md">
+        <div className="min-h-screen flex items-center justify-center p-4">
+            <div className="card shadow-xl w-full max-w-md">
                 <div className="card-body">
                     <h1 className="card-title text-2xl text-gray-lighter mb-2">
                         🌂 Umbrella
@@ -58,7 +58,7 @@ export default function LoginPage() {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="input input-bordered w-full bg-[var(--navy-light)] text-gray-lighter border-gray-medium focus:border-accent"
+                                className="input input-bordered w-full text-gray-lighter border-gray-medium focus:border-accent"
                                 placeholder="Introduce la contraseña"
                                 required
                                 autoFocus

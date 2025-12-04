@@ -32,7 +32,7 @@ model Settings {
   id     String @id @default(cuid())
   userId String @unique
   theme  String @default("light")
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Profile {

@@ -91,7 +91,7 @@ export default function NewConversationPage() {
                     <button
                         onClick={handleGenerate}
                         disabled={!inputMessage || isGenerating}
-                        className="w-full btn border-none bg-gradient-to-r from-[var(--sky-blue)] to-[var(--sky-blue-dark)] text-white hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl h-12 shadow-lg shadow-sky-blue/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                        className="w-full btn border-none text-white hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl h-12 shadow-lg shadow-sky-blue/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
                         {isGenerating ? (
                             <span className="loading loading-spinner loading-sm"></span>

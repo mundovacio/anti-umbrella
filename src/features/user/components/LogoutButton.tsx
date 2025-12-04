@@ -16,7 +16,7 @@ export const LogoutButton = () => {
 
     if (showConfirm) {
         return (
-            <div className="card bg-[var(--navy-medium)] shadow-xl border border-red-500/20">
+            <div className="card shadow-xl border border-red-500/20">
                 <div className="card-body">
                     <h3 className="text-lg font-semibold text-gray-lighter">¿Cerrar Sesión?</h3>
                     <p className="text-gray-light/60 text-sm">¿Estás seguro de que quieres cerrar sesión?</p>

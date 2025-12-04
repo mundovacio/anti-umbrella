@@ -44,7 +44,7 @@ export const ChangePasswordForm = () => {
     };
 
     return (
-        <div className="card bg-[var(--navy-medium)] shadow-xl mt-6">
+        <div className="card shadow-xl mt-6">
             <div className="card-body">
                 <div className="flex items-center space-x-3 mb-4">
                     <Lock size={24} className="text-sky-blue" />

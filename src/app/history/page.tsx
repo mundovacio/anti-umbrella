@@ -10,7 +10,7 @@ export default function HistoryPage() {
     ];
 
     return (
-        <div className="bg-[var(--navy-dark)] p-4">
+        <div className="p-4">
             <div className="max-w-4xl mx-auto">
                 <h1 className="text-3xl font-semibold text-gray-lighter mb-6">Historial</h1>
 
@@ -22,7 +22,7 @@ export default function HistoryPage() {
                 ) : (
                     <div className="space-y-4">
                         {conversations.map((conv) => (
-                            <div key={conv.id} className="card bg-[var(--navy-medium)] shadow-xl hover:border-sky-blue hover:border-2 transition-all cursor-pointer">
+                            <div key={conv.id} className="card shadow-xl hover:border-sky-blue hover:border-2 transition-all cursor-pointer">
                                 <div className="card-body">
                                     <div className="flex justify-between items-start">
                                         <div>

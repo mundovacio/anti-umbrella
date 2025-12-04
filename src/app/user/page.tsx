@@ -36,11 +36,11 @@ export default async function UserPage() {
     }).format(new Date(user.createdAt));
 
     return (
-        <div className="bg-[var(--navy-dark)] p-4 min-h-screen">
+        <div className="p-4 min-h-screen">
             <div className="max-w-4xl mx-auto">
                 <h1 className="text-3xl font-semibold text-gray-lighter mb-6">Mi Perfil</h1>
 
-                <div className="card bg-[var(--navy-medium)] shadow-xl">
+                <div className="card shadow-xl">
                     <div className="card-body">
                         <div className="flex items-center space-x-4 mb-6">
                             <div className="w-20 h-20 rounded-full bg-sky-blue/20 flex items-center justify-center">

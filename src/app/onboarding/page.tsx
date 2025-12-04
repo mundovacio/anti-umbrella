@@ -49,7 +49,7 @@ export default function OnboardingPage() {
     };
 
     return (
-        <div className="bg-gradient-to-b from-[var(--navy-dark)] to-[#0a192f] flex flex-col items-center justify-center p-4 overflow-hidden">
+        <div className="flex flex-col items-center justify-center p-4 overflow-hidden">
             <div className="w-full max-w-2xl h-[600px] flex flex-col relative">
                 {/* Main Content Area with Glass Effect */}
                 <div className="flex-1 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative">

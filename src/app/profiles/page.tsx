@@ -8,7 +8,7 @@ export default function ProfilesPage() {
     const [showForm, setShowForm] = useState(false);
 
     return (
-        <div className="bg-[var(--navy-dark)] p-4">
+        <div className="p-4">
             <div className="max-w-4xl mx-auto">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-semibold text-gray-lighter">Perfiles</h1>
@@ -21,7 +21,7 @@ export default function ProfilesPage() {
                 </div>
 
                 {showForm && (
-                    <div className="card bg-[var(--navy-medium)] shadow-xl mb-6">
+                    <div className="card shadow-xl mb-6">
                         <div className="card-body">
                             <h2 className="card-title text-gray-lighter">Nuevo Perfil del agresor/a</h2>
                             <form className="space-y-4">
@@ -32,7 +32,7 @@ export default function ProfilesPage() {
                                     <input
                                         type="text"
                                         placeholder="ej: jefe, ex, etc."
-                                        className="input input-bordered w-full bg-[var(--navy-dark)] text-gray-lighter"
+                                        className="input input-bordered w-full text-gray-lighter"
                                     />
                                 </div>
 
@@ -40,7 +40,7 @@ export default function ProfilesPage() {
                                     <label className="label">
                                         <span className="label-text text-gray-light">Relación</span>
                                     </label>
-                                    <select className="select select-bordered w-full bg-[var(--navy-dark)] text-gray-lighter">
+                                    <select className="select select-bordered w-full text-gray-lighter">
                                         <option>Pareja</option>
                                         <option>Ex-pareja</option>
                                         <option>Padre/Madre</option>
@@ -54,7 +54,7 @@ export default function ProfilesPage() {
                                     <label className="label">
                                         <span className="label-text text-gray-light">Género</span>
                                     </label>
-                                    <select className="select select-bordered w-full bg-[var(--navy-dark)] text-gray-lighter">
+                                    <select className="select select-bordered w-full text-gray-lighter">
                                         <option>Hombre</option>
                                         <option>Mujer</option>
                                     </select>
@@ -67,7 +67,7 @@ export default function ProfilesPage() {
                                     <input
                                         type="text"
                                         placeholder="ej: Diaria, semanal"
-                                        className="input input-bordered w-full bg-[var(--navy-dark)] text-gray-lighter"
+                                        className="input input-bordered w-full text-gray-lighter"
                                     />
                                 </div>
 
@@ -78,7 +78,7 @@ export default function ProfilesPage() {
                                     <input
                                         type="text"
                                         placeholder="ej: WhatsApp, Email, Presencial"
-                                        className="input input-bordered w-full bg-[var(--navy-dark)] text-gray-lighter"
+                                        className="input input-bordered w-full text-gray-lighter"
                                     />
                                 </div>
 
@@ -88,7 +88,7 @@ export default function ProfilesPage() {
                                     </label>
                                     <textarea
                                         placeholder="ej: 2 hijos, 5 y 8 años"
-                                        className="textarea textarea-bordered w-full bg-[var(--navy-dark)] text-gray-lighter"
+                                        className="textarea textarea-bordered w-full text-gray-lighter"
                                     />
                                 </div>
 
@@ -98,7 +98,7 @@ export default function ProfilesPage() {
                                     </label>
                                     <textarea
                                         placeholder="ej: Sentencia de custodia, orden de alejamiento"
-                                        className="textarea textarea-bordered w-full bg-[var(--navy-dark)] text-gray-lighter"
+                                        className="textarea textarea-bordered w-full text-gray-lighter"
                                     />
                                 </div>
 
