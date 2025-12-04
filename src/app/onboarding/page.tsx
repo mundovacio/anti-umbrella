@@ -15,11 +15,16 @@ import { useState } from 'react';
 
 export default function OnboardingPage() {
     const { step, setStep } = useOnboardingStore();
-    const [prevStep, setPrevStep] = useState(step);
-    const direction = step > prevStep ? 1 : step < prevStep ? -1 : 0;
+    // Use useRef to track previous step without triggering re-renders
+    const prevStepRef = React.useRef(step);
+
+    // Calculate direction based on current and previous step
+    // We need to update the ref AFTER calculating direction but BEFORE the render is fully committed for the next effect
+    // However, in React, we calculate direction based on the current render's step vs the ref's current value
+    const direction = step > prevStepRef.current ? 1 : step < prevStepRef.current ? -1 : 0;
 
     React.useEffect(() => {
-        setPrevStep(step);
+        prevStepRef.current = step;
     }, [step]);
 
     const handleNext = () => {
@@ -33,7 +38,7 @@ export default function OnboardingPage() {
 
     const variants = {
         enter: (direction: number) => ({
-            x: direction > 0 ? 100 : -100,
+            x: direction > 0 ? '100%' : '-100%',
             opacity: 0,
         }),
         center: {
@@ -43,7 +48,7 @@ export default function OnboardingPage() {
         },
         exit: (direction: number) => ({
             zIndex: 0,
-            x: direction < 0 ? 100 : -100,
+            x: direction < 0 ? '100%' : '-100%',
             opacity: 0,
         }),
     };
