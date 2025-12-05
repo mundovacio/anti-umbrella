@@ -23,6 +23,9 @@ export default function ResetPage() {
                     }
                     if (data?.success) {
                         setSuccess(data.success);
+                        if (data.redirectUrl) {
+                            window.location.href = data.redirectUrl;
+                        }
                     }
                 });
         });
@@ -36,7 +39,7 @@ export default function ResetPage() {
                         Recuperar Contraseña
                     </h1>
                     <p className="text-gray-light text-sm mb-6 text-center">
-                        Ingresa tu correo para recibir las instrucciones
+                        Ingresa tu correo para continuar.
                     </p>
 
                     <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
@@ -75,7 +78,7 @@ export default function ResetPage() {
                             {isPending ? (
                                 <span className="loading loading-spinner"></span>
                             ) : (
-                                'Enviar correo'
+                                'Continuar'
                             )}
                         </button>
                     </form>

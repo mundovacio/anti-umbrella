@@ -29,7 +29,14 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
     }
 
     const passwordResetToken = await generatePasswordResetToken(email);
-    await sendPasswordResetEmail(passwordResetToken.email, passwordResetToken.token);
+    // await sendPasswordResetEmail(passwordResetToken.email, passwordResetToken.token);
 
-    return { success: 'Reset email sent!' };
+    const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/new-password?token=${passwordResetToken.token}`;
+
+    console.log('----------------------------------------------');
+    console.log(`🔐 [DEV] Password Reset Token: ${passwordResetToken.token}`);
+    console.log(`🔗 Reset Link: ${resetUrl}`);
+    console.log('----------------------------------------------');
+
+    return { success: 'Redirigiendo...', redirectUrl: resetUrl };
 };

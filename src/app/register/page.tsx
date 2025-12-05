@@ -48,8 +48,11 @@ export default function RegisterPage() {
                     </div>
                     <h2 className="text-2xl font-bold text-white mb-4">¡Registro Exitoso!</h2>
                     <p className="text-gray-300 mb-6">
-                        Hemos enviado un enlace de confirmación a <b>{formData.email}</b>.
-                        <br />Por favor, verifica tu correo para continuar.
+                        <br />Tu cuenta ha sido creada exitosamente.
+                        <br />
+                        <Link href="/login" className="text-sky-blue hover:underline font-bold">
+                            Inicia sesión aquí
+                        </Link>
                     </p>
                     <Link href="/login" className="btn btn-primary w-full">
                         Ir al Inicio de Sesión

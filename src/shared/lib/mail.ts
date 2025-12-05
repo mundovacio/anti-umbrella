@@ -17,7 +17,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 
     try {
         await resend!.emails.send({
-            from: 'Umbrella <onboarding@resend.dev>', // Update this with your verified domain
+            from: 'Umbrella <onboarding@resend.dev>',
             to: email,
             subject: 'Verifica tu correo electrónico',
             html: `<p>Haz clic en el siguiente enlace para verificar tu correo: <a href="${confirmLink}">Verificar correo</a></p>`
@@ -40,7 +40,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
 
     try {
         await resend!.emails.send({
-            from: 'Umbrella <onboarding@resend.dev>', // Update this with your verified domain
+            from: 'Umbrella <onboarding@resend.dev>',
             to: email,
             subject: 'Restablecer contraseña',
             html: `<p>Haz clic en el siguiente enlace para restablecer tu contraseña: <a href="${resetLink}">Restablecer contraseña</a></p>`
