@@ -5,7 +5,9 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { newPassword } from '@/features/auth/actions/new-password';
 
-export default function NewPasswordPage() {
+import { Suspense } from 'react';
+
+function NewPasswordForm() {
     const searchParams = useSearchParams();
     const token = searchParams.get('token');
 
@@ -92,5 +94,13 @@ export default function NewPasswordPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function NewPasswordPage() {
+    return (
+        <Suspense>
+            <NewPasswordForm />
+        </Suspense>
     );
 }

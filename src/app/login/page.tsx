@@ -7,7 +7,7 @@ import { login } from '@/features/auth/actions/login';
 export default function LoginPage() {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | undefined>('');
-    const [success, setSuccess] = useState<string | undefined>('');
+
 
     const [formData, setFormData] = useState({
         email: '',
@@ -21,7 +21,7 @@ export default function LoginPage() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
-        setSuccess('');
+
 
         startTransition(() => {
             login(formData)

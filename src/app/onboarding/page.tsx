@@ -9,26 +9,21 @@ import { Slide4 } from '@/features/onboarding/components/Slide4';
 import { completeOnboarding } from '@/features/onboarding/useCases/completeOnboarding';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+
 
 
 export default function OnboardingPage() {
     const { step, setStep } = useOnboardingStore();
-    // Use useRef to track previous step without triggering re-renders
-    const prevStepRef = React.useRef(step);
+    // Track [previous, current] step to calculate direction
+    const [[prevStep, currentStep], setSteps] = React.useState([step, step]);
 
-    // Calculate direction based on current and previous step
-    // We need to update the ref AFTER calculating direction but BEFORE the render is fully committed for the next effect
-    // However, in React, we calculate direction based on the current render's step vs the ref's current value
-    const direction = step > prevStepRef.current ? 1 : step < prevStepRef.current ? -1 : 0;
+    if (currentStep !== step) {
+        setSteps([currentStep, step]);
+    }
 
-    React.useEffect(() => {
-        prevStepRef.current = step;
-    }, [step]);
+    const direction = step > prevStep ? 1 : step < prevStep ? -1 : 0;
 
-    const handleNext = () => {
-        setStep(step + 1);
-    };
+
 
     const handleComplete = async () => {
         await completeOnboarding();
