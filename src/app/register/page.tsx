@@ -39,7 +39,7 @@ export default function RegisterPage() {
 
     if (success) {
         return (
-            <div className="min-h-screen flex items-center justify-center p-4">
+            <div className="min-h-screen p-4 pb-25 flex items-center justify-center">
                 <div className="w-full max-w-md bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl p-8 text-center">
                     <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6">
                         <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">

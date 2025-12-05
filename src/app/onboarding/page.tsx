@@ -47,8 +47,8 @@ export default function OnboardingPage() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center p-4 overflow-hidden">
-            <div className="w-full max-w-2xl h-[600px] flex flex-col relative">
+        <div className="min-h-screen p-4 pb-25 flex flex-col items-center justify-center overflow-hidden">
+            <div className="w-full max-w-2xl min-h-[550px] flex flex-col relative">
                 {/* Main Content Area with Glass Effect */}
                 <div className="flex-1 flex items-center justify-center bg-white/5 backdrop-blur-sm rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative">
                     {/* Decorative background elements */}
@@ -70,7 +70,7 @@ export default function OnboardingPage() {
                                     x: { type: "spring", stiffness: 300, damping: 30 },
                                     opacity: { duration: 0.2 }
                                 }}
-                                className="absolute w-full h-full"
+                                className="absolutew-full h-full"
                             >
                                 {step === 1 && <Slide1 />}
                                 {step === 2 && <Slide2 />}

@@ -32,7 +32,7 @@ export default function ResetPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="min-h-screen p-4 pb-25 flex items-center justify-center">
             <div className="card shadow-xl w-full max-w-md bg-white/5 backdrop-blur-sm border border-white/10">
                 <div className="card-body">
                     <h1 className="card-title text-2xl text-gray-lighter mb-2 justify-center">

@@ -10,7 +10,7 @@ export default function HistoryPage() {
     ];
 
     return (
-        <div className="p-4">
+        <div className="min-h-screen p-4 pb-25">
             <div className="max-w-4xl mx-auto">
                 <h1 className="text-3xl font-semibold text-gray-lighter mb-6">Historial</h1>
 

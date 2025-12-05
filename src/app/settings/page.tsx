@@ -30,7 +30,7 @@ export default function SettingsPage() {
     };
 
     return (
-        <div className="min-h-screen p-4">
+        <div className="min-h-screen p-4 pb-25">
             <div className="max-w-4xl mx-auto">
                 <div className="flex items-center space-x-3 mb-6">
                     <SettingsIcon size={32} className="text-sky-blue" />
