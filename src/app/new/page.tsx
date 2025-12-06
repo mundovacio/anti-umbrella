@@ -53,9 +53,7 @@ export default function NewConversationPage() {
         <div className="min-h-screen p-4 pb-25 flex flex-col items-center">
             <div className="w-full max-w-2xl space-y-8 pt-6">
                 <header className="text-center space-y-2">
-                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                        Nueva Conversación
-                    </h1>
+                    <h1 className="text-3xl font-semibold text-gray-lighter">Nueva Conversación</h1>
                     <p className="text-gray-400 text-sm">
                         Pega el mensaje difícil y deja que la IA te ayude a responder.
                     </p>

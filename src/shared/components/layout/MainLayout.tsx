@@ -47,7 +47,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     </div>
                     <div className="flex-none lg:hidden">
                         <Link href="/tips" className="btn btn-square btn-ghost">
-                            <Zap className="w-5 h-5 text-yellow-400" />
+                            <Zap className="w-5 h-5" />
                         </Link>
                     </div>
 
