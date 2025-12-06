@@ -6,9 +6,8 @@ const openrouter = createOpenRouter({
     apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-// Modelo por defecto: x-ai/grok-4.1-fast:free
-// Modelo por defecto: google/gemini-2.0-flash-exp:free
-const DEFAULT_MODEL = 'tngtech/deepseek-r1t2-chimera:free';
+// Modelo
+const DEFAULT_MODEL = 'google/gemma-3n-e4b-it:free';
 
 /**
  * Obtiene una respuesta de OpenRouter usando el Vercel AI SDK
