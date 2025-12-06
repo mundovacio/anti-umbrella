@@ -1,12 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { updateProfile } from '@/features/profiles/actions/update-profile';
+import { deleteProfile } from '@/features/profiles/actions/delete-profile';
 
 export default function ProfilesPage() {
     const [profiles, setProfiles] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
+    const [editingProfile, setEditingProfile] = useState<any>(null); // State for profile being edited
     const [createState, setCreateState] = useState<any>(null); // State for server action result
 
     React.useEffect(() => {
@@ -28,7 +31,10 @@ export default function ProfilesPage() {
                 <header className="flex justify-between items-center mb-6">
                     <h1 className="text-3xl font-semibold ">Perfiles</h1>
                     <button
-                        onClick={() => setShowForm(!showForm)}
+                        onClick={() => {
+                            setEditingProfile(null);
+                            setShowForm(!showForm);
+                        }}
                         className="btn btn-primary btn-circle"
                     >
                         <Plus size={24} />
@@ -38,17 +44,23 @@ export default function ProfilesPage() {
                 {showForm && (
                     <div className="card shadow-xl mb-6">
                         <div className="card-body">
-                            <h2 className="card-title ">Nuevo perfil del agresor/a</h2>
+                            <h2 className="card-title ">{editingProfile ? 'Editar Perfil' : 'Nuevo perfil del agresor/a'}</h2>
 
 
                             <form
                                 action={async (formData) => {
-                                    const mod = await import('@/features/profiles/actions/create-profile');
-                                    const result = await mod.createProfile(null, formData);
+                                    let result;
+                                    if (editingProfile) {
+                                        result = await updateProfile(editingProfile.id, null, formData);
+                                    } else {
+                                        const mod = await import('@/features/profiles/actions/create-profile');
+                                        result = await mod.createProfile(null, formData);
+                                    }
+
                                     setCreateState(result);
                                     if (result?.message === 'success') {
                                         setShowForm(false);
-                                        // Trigger a refresh logic if needed, but useEffect depends on createState
+                                        setEditingProfile(null);
                                     }
                                 }}
                                 className="space-y-4"
@@ -67,6 +79,7 @@ export default function ProfilesPage() {
                                         id="name"
                                         name="name"
                                         type="text"
+                                        defaultValue={editingProfile?.name}
                                         placeholder="ej: jefe, ex, etc."
                                         className="input input-bordered w-full"
                                         required
@@ -86,6 +99,7 @@ export default function ProfilesPage() {
                                         id="relation"
                                         name="relation"
                                         list="relationships"
+                                        defaultValue={editingProfile?.relation}
                                         className="input w-full"
                                         placeholder="Selecciona o escribe una relación"
                                         required
@@ -114,6 +128,7 @@ export default function ProfilesPage() {
                                         id="gender"
                                         name="gender"
                                         list="genders"
+                                        defaultValue={editingProfile?.gender}
                                         className="input input-bordered w-full text-gray-lighter"
                                         placeholder="Selecciona o escribe un género"
                                         required
@@ -139,6 +154,7 @@ export default function ProfilesPage() {
                                         id="communicationFrequency"
                                         name="communicationFrequency"
                                         type="text"
+                                        defaultValue={editingProfile?.communicationFrequency}
                                         placeholder="ej: Diaria, semanal"
                                         className="input w-full"
                                     />
@@ -152,6 +168,7 @@ export default function ProfilesPage() {
                                         id="communicationChannel"
                                         name="communicationChannel"
                                         list="communicationChannels"
+                                        defaultValue={editingProfile?.communicationChannel}
                                         className="input w-full"
                                         placeholder="Selecciona o escribe un canal"
                                         required
@@ -177,6 +194,7 @@ export default function ProfilesPage() {
                                     <textarea
                                         id="childrenInfo"
                                         name="childrenInfo"
+                                        defaultValue={editingProfile?.childrenInfo}
                                         placeholder="ej: 2 hijos, 5 y 8 años"
                                         className="textarea w-full"
                                         required
@@ -195,13 +213,17 @@ export default function ProfilesPage() {
                                     <textarea
                                         id="legalStatus"
                                         name="legalStatus"
+                                        defaultValue={editingProfile?.legalStatus}
                                         placeholder="ej: Sentencia de custodia, orden de alejamiento"
                                         className="textarea w-full"
                                     />
                                 </div>
 
                                 <div className="card-actions justify-end">
-                                    <button type="button" onClick={() => setShowForm(false)} className="btn btn-ghost">
+                                    <button type="button" onClick={() => {
+                                        setShowForm(false);
+                                        setEditingProfile(null);
+                                    }} className="btn btn-ghost">
                                         Cancelar
                                     </button>
                                     <button type="submit" className="btn btn-primary">
@@ -236,10 +258,35 @@ export default function ProfilesPage() {
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {profiles.map((profile) => (
-                                    <div key={profile.id} className="card bg-base-200 border border-white/5 shadow-lg">
+                                    <div key={profile.id} className="card bg-base-200 border border-white/5 shadow-lg group">
                                         <div className="card-body">
-                                            <h3 className="card-title ">{profile.name}</h3>
-                                            <p className="text-sm text-sky-blue">{profile.relation}</p>
+                                            <div className="flex justify-between items-start">
+                                                <div>
+                                                    <h3 className="card-title ">{profile.name}</h3>
+                                                    <p className="text-sm text-sky-blue">{profile.relation}</p>
+                                                </div>
+                                                <div className="flex gap-2">
+                                                    <button
+                                                        onClick={() => {
+                                                            setEditingProfile(profile);
+                                                            setShowForm(true);
+                                                        }}
+                                                        className="btn btn-ghost btn-xs btn-circle text-gray-400 hover:text-white"
+                                                    >
+                                                        <Pencil size={16} />
+                                                    </button>
+                                                    <button
+                                                        onClick={async () => {
+                                                            if (confirm('¿Estás seguro de que quieres eliminar este perfil? Esta acción no se puede deshacer.')) {
+                                                                await deleteProfile(profile.id);
+                                                            }
+                                                        }}
+                                                        className="btn btn-ghost btn-xs btn-circle text-error hover:bg-error/10"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </button>
+                                                </div>
+                                            </div>
                                             <div className="mt-2 text-xs text-gray-light space-y-1">
                                                 {profile.communicationFrequency && <p>Frecuencia: {profile.communicationFrequency}</p>}
                                                 {profile.communicationChannel && <p>Canal: {profile.communicationChannel}</p>}
