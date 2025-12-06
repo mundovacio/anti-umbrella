@@ -28,18 +28,30 @@ export type SettingsMinAggregateOutputType = {
   id: string | null
   userId: string | null
   theme: string | null
+  showOriginalText: boolean | null
+  showFriendlyTranslation: boolean | null
+  showGeneratedReply: boolean | null
+  denyAppointments: boolean | null
 }
 
 export type SettingsMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   theme: string | null
+  showOriginalText: boolean | null
+  showFriendlyTranslation: boolean | null
+  showGeneratedReply: boolean | null
+  denyAppointments: boolean | null
 }
 
 export type SettingsCountAggregateOutputType = {
   id: number
   userId: number
   theme: number
+  showOriginalText: number
+  showFriendlyTranslation: number
+  showGeneratedReply: number
+  denyAppointments: number
   _all: number
 }
 
@@ -48,18 +60,30 @@ export type SettingsMinAggregateInputType = {
   id?: true
   userId?: true
   theme?: true
+  showOriginalText?: true
+  showFriendlyTranslation?: true
+  showGeneratedReply?: true
+  denyAppointments?: true
 }
 
 export type SettingsMaxAggregateInputType = {
   id?: true
   userId?: true
   theme?: true
+  showOriginalText?: true
+  showFriendlyTranslation?: true
+  showGeneratedReply?: true
+  denyAppointments?: true
 }
 
 export type SettingsCountAggregateInputType = {
   id?: true
   userId?: true
   theme?: true
+  showOriginalText?: true
+  showFriendlyTranslation?: true
+  showGeneratedReply?: true
+  denyAppointments?: true
   _all?: true
 }
 
@@ -139,6 +163,10 @@ export type SettingsGroupByOutputType = {
   id: string
   userId: string
   theme: string
+  showOriginalText: boolean
+  showFriendlyTranslation: boolean
+  showGeneratedReply: boolean
+  denyAppointments: boolean
   _count: SettingsCountAggregateOutputType | null
   _min: SettingsMinAggregateOutputType | null
   _max: SettingsMaxAggregateOutputType | null
@@ -166,6 +194,10 @@ export type SettingsWhereInput = {
   id?: Prisma.StringFilter<"Settings"> | string
   userId?: Prisma.StringFilter<"Settings"> | string
   theme?: Prisma.StringFilter<"Settings"> | string
+  showOriginalText?: Prisma.BoolFilter<"Settings"> | boolean
+  showFriendlyTranslation?: Prisma.BoolFilter<"Settings"> | boolean
+  showGeneratedReply?: Prisma.BoolFilter<"Settings"> | boolean
+  denyAppointments?: Prisma.BoolFilter<"Settings"> | boolean
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -173,6 +205,10 @@ export type SettingsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   theme?: Prisma.SortOrder
+  showOriginalText?: Prisma.SortOrder
+  showFriendlyTranslation?: Prisma.SortOrder
+  showGeneratedReply?: Prisma.SortOrder
+  denyAppointments?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -183,6 +219,10 @@ export type SettingsWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.SettingsWhereInput[]
   NOT?: Prisma.SettingsWhereInput | Prisma.SettingsWhereInput[]
   theme?: Prisma.StringFilter<"Settings"> | string
+  showOriginalText?: Prisma.BoolFilter<"Settings"> | boolean
+  showFriendlyTranslation?: Prisma.BoolFilter<"Settings"> | boolean
+  showGeneratedReply?: Prisma.BoolFilter<"Settings"> | boolean
+  denyAppointments?: Prisma.BoolFilter<"Settings"> | boolean
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
@@ -190,6 +230,10 @@ export type SettingsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   theme?: Prisma.SortOrder
+  showOriginalText?: Prisma.SortOrder
+  showFriendlyTranslation?: Prisma.SortOrder
+  showGeneratedReply?: Prisma.SortOrder
+  denyAppointments?: Prisma.SortOrder
   _count?: Prisma.SettingsCountOrderByAggregateInput
   _max?: Prisma.SettingsMaxOrderByAggregateInput
   _min?: Prisma.SettingsMinOrderByAggregateInput
@@ -202,11 +246,19 @@ export type SettingsScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Settings"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Settings"> | string
   theme?: Prisma.StringWithAggregatesFilter<"Settings"> | string
+  showOriginalText?: Prisma.BoolWithAggregatesFilter<"Settings"> | boolean
+  showFriendlyTranslation?: Prisma.BoolWithAggregatesFilter<"Settings"> | boolean
+  showGeneratedReply?: Prisma.BoolWithAggregatesFilter<"Settings"> | boolean
+  denyAppointments?: Prisma.BoolWithAggregatesFilter<"Settings"> | boolean
 }
 
 export type SettingsCreateInput = {
   id?: string
   theme?: string
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
   user: Prisma.UserCreateNestedOneWithoutSettingsInput
 }
 
@@ -214,11 +266,19 @@ export type SettingsUncheckedCreateInput = {
   id?: string
   userId: string
   theme?: string
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
 }
 
 export type SettingsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   theme?: Prisma.StringFieldUpdateOperationsInput | string
+  showOriginalText?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFriendlyTranslation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showGeneratedReply?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  denyAppointments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
 }
 
@@ -226,23 +286,39 @@ export type SettingsUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   theme?: Prisma.StringFieldUpdateOperationsInput | string
+  showOriginalText?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFriendlyTranslation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showGeneratedReply?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  denyAppointments?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SettingsCreateManyInput = {
   id?: string
   userId: string
   theme?: string
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
 }
 
 export type SettingsUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   theme?: Prisma.StringFieldUpdateOperationsInput | string
+  showOriginalText?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFriendlyTranslation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showGeneratedReply?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  denyAppointments?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SettingsUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   theme?: Prisma.StringFieldUpdateOperationsInput | string
+  showOriginalText?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFriendlyTranslation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showGeneratedReply?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  denyAppointments?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SettingsNullableScalarRelationFilter = {
@@ -254,18 +330,30 @@ export type SettingsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   theme?: Prisma.SortOrder
+  showOriginalText?: Prisma.SortOrder
+  showFriendlyTranslation?: Prisma.SortOrder
+  showGeneratedReply?: Prisma.SortOrder
+  denyAppointments?: Prisma.SortOrder
 }
 
 export type SettingsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   theme?: Prisma.SortOrder
+  showOriginalText?: Prisma.SortOrder
+  showFriendlyTranslation?: Prisma.SortOrder
+  showGeneratedReply?: Prisma.SortOrder
+  denyAppointments?: Prisma.SortOrder
 }
 
 export type SettingsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   theme?: Prisma.SortOrder
+  showOriginalText?: Prisma.SortOrder
+  showFriendlyTranslation?: Prisma.SortOrder
+  showGeneratedReply?: Prisma.SortOrder
+  denyAppointments?: Prisma.SortOrder
 }
 
 export type SettingsCreateNestedOneWithoutUserInput = {
@@ -300,14 +388,26 @@ export type SettingsUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SettingsUpdateToOneWithWhereWithoutUserInput, Prisma.SettingsUpdateWithoutUserInput>, Prisma.SettingsUncheckedUpdateWithoutUserInput>
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type SettingsCreateWithoutUserInput = {
   id?: string
   theme?: string
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
 }
 
 export type SettingsUncheckedCreateWithoutUserInput = {
   id?: string
   theme?: string
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
 }
 
 export type SettingsCreateOrConnectWithoutUserInput = {
@@ -329,11 +429,19 @@ export type SettingsUpdateToOneWithWhereWithoutUserInput = {
 export type SettingsUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   theme?: Prisma.StringFieldUpdateOperationsInput | string
+  showOriginalText?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFriendlyTranslation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showGeneratedReply?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  denyAppointments?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SettingsUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   theme?: Prisma.StringFieldUpdateOperationsInput | string
+  showOriginalText?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFriendlyTranslation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showGeneratedReply?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  denyAppointments?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -342,6 +450,10 @@ export type SettingsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   userId?: boolean
   theme?: boolean
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["settings"]>
 
@@ -349,6 +461,10 @@ export type SettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   userId?: boolean
   theme?: boolean
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["settings"]>
 
@@ -356,6 +472,10 @@ export type SettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   userId?: boolean
   theme?: boolean
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["settings"]>
 
@@ -363,9 +483,13 @@ export type SettingsSelectScalar = {
   id?: boolean
   userId?: boolean
   theme?: boolean
+  showOriginalText?: boolean
+  showFriendlyTranslation?: boolean
+  showGeneratedReply?: boolean
+  denyAppointments?: boolean
 }
 
-export type SettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "theme", ExtArgs["result"]["settings"]>
+export type SettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "theme" | "showOriginalText" | "showFriendlyTranslation" | "showGeneratedReply" | "denyAppointments", ExtArgs["result"]["settings"]>
 export type SettingsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -385,6 +509,10 @@ export type $SettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     userId: string
     theme: string
+    showOriginalText: boolean
+    showFriendlyTranslation: boolean
+    showGeneratedReply: boolean
+    denyAppointments: boolean
   }, ExtArgs["result"]["settings"]>
   composites: {}
 }
@@ -812,6 +940,10 @@ export interface SettingsFieldRefs {
   readonly id: Prisma.FieldRef<"Settings", 'String'>
   readonly userId: Prisma.FieldRef<"Settings", 'String'>
   readonly theme: Prisma.FieldRef<"Settings", 'String'>
+  readonly showOriginalText: Prisma.FieldRef<"Settings", 'Boolean'>
+  readonly showFriendlyTranslation: Prisma.FieldRef<"Settings", 'Boolean'>
+  readonly showGeneratedReply: Prisma.FieldRef<"Settings", 'Boolean'>
+  readonly denyAppointments: Prisma.FieldRef<"Settings", 'Boolean'>
 }
     
 

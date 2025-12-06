@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: sunset --default;
+  themes: nord, sunset --default;
 }
 
  

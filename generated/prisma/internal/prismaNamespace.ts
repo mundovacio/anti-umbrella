@@ -1009,7 +1009,11 @@ export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalar
 export const SettingsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  theme: 'theme'
+  theme: 'theme',
+  showOriginalText: 'showOriginalText',
+  showFriendlyTranslation: 'showFriendlyTranslation',
+  showGeneratedReply: 'showGeneratedReply',
+  denyAppointments: 'denyAppointments'
 } as const
 
 export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
@@ -1107,6 +1111,13 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

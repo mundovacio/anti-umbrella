@@ -110,7 +110,11 @@ export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalar
 export const SettingsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  theme: 'theme'
+  theme: 'theme',
+  showOriginalText: 'showOriginalText',
+  showFriendlyTranslation: 'showFriendlyTranslation',
+  showGeneratedReply: 'showGeneratedReply',
+  denyAppointments: 'denyAppointments'
 } as const
 
 export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]

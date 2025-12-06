@@ -9,12 +9,38 @@ export default function NewConversationPage() {
     const [inputMessage, setInputMessage] = useState('');
     const [generatedReply, setGeneratedReply] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [settings, setSettings] = useState<any>(null); // Quick fix type, ideally proper type
+    const [showReply, setShowReply] = useState(true);
+
+    React.useEffect(() => {
+        // Dynamic import to avoid server-side issues if any, though getSettings is a server action safe to call.
+        import('@/features/settings/actions/get-settings').then(async (mod) => {
+            try {
+                const userSettings = await mod.getSettings();
+                setSettings(userSettings);
+                // If preference is to hide, start hidden
+                if (userSettings && !userSettings.showGeneratedReply) {
+                    setShowReply(false);
+                }
+            } catch (e) {
+                console.error("Failed to fetch settings", e);
+            }
+        });
+    }, []);
 
     const handleGenerate = async () => {
         if (!inputMessage.trim()) return;
 
         setIsGenerating(true);
         setGeneratedReply('');
+
+        // Reset showReply state based on settings for new generation? 
+        // Or keep user's manual toggle? Let's reset to preference.
+        if (settings && !settings.showGeneratedReply) {
+            setShowReply(false);
+        } else {
+            setShowReply(true);
+        }
 
         try {
             const response = await fetch('/api/conversation/generate', {
@@ -115,18 +141,38 @@ export default function NewConversationPage() {
                                     <Send size={18} />
                                     Respuesta Sugerida
                                 </h2>
-                                <button
-                                    onClick={handleCopy}
-                                    className="btn btn-ghost btn-sm btn-circle hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
-                                    title="Copiar respuesta"
-                                >
-                                    <Copy size={18} />
-                                </button>
+                                <div className="flex gap-2">
+                                    {settings && !settings.showGeneratedReply && (
+                                        <button
+                                            onClick={() => setShowReply(!showReply)}
+                                            className="btn btn-ghost btn-sm text-xs"
+                                        >
+                                            {showReply ? 'Ocultar' : 'Mostrar'}
+                                        </button>
+                                    )}
+                                    <button
+                                        onClick={handleCopy}
+                                        className="btn btn-ghost btn-sm btn-circle hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+                                        title="Copiar respuesta"
+                                    >
+                                        <Copy size={18} />
+                                    </button>
+                                </div>
                             </div>
-                            <div className="bg-black/20 rounded-2xl p-4 border border-white/5">
-                                <p className="text-gray-200 whitespace-pre-wrap leading-relaxed">
+                            <div className={`bg-black/20 rounded-2xl p-4 border border-white/5 relative overflow-hidden transition-all duration-300 ${!showReply ? 'h-24' : ''}`}>
+                                <p className={`text-gray-200 whitespace-pre-wrap leading-relaxed transition-all duration-300 ${!showReply ? 'blur-md select-none' : ''}`}>
                                     {generatedReply}
                                 </p>
+                                {!showReply && (
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <button
+                                            onClick={() => setShowReply(true)}
+                                            className="btn btn-sm btn-outline btn-info bg-black/50 backdrop-blur-sm"
+                                        >
+                                            Ver Respuesta
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </motion.div>
                     )}

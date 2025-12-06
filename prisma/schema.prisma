@@ -38,10 +38,14 @@ model PasswordResetToken {
 }
 
 model Settings {
-  id     String @id @default(cuid())
-  userId String @unique
-  theme  String @default("light")
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                      String  @id @default(cuid())
+  userId                  String  @unique
+  theme                   String  @default("sunset")
+  showOriginalText        Boolean @default(true)
+  showFriendlyTranslation Boolean @default(true)
+  showGeneratedReply      Boolean @default(true)
+  denyAppointments        Boolean @default(false)
+  user                    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Profile {
