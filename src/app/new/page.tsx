@@ -84,7 +84,16 @@ export default function NewConversationPage() {
             }
 
             const data = await response.json();
-            setGeneratedReply(data.reply?.trim());
+            const reply = data.reply?.trim();
+            setGeneratedReply(reply);
+
+            // Auto-save to history
+            if (reply) {
+                // We need to import dynamically or use a separate function to avoid server action import issues in client component if strict
+                import('@/features/history/actions/save-conversation').then(async (mod) => {
+                    await mod.saveConversation(inputMessage, reply, selectedProfileId || undefined);
+                });
+            }
         } catch (error) {
             console.error('Error:', error);
             setError(

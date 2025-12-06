@@ -1038,6 +1038,8 @@ export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeo
 
 export const ConversationScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
+  profileId: 'profileId',
   title: 'title',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

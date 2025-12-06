@@ -19,6 +19,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   settings      Settings?
   profiles      Profile[]
+  conversations Conversation[]
 }
 
 model VerificationToken {
@@ -62,10 +63,15 @@ model Profile {
   legalStatus            String?
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
+  conversations          Conversation[]
 }
 
 model Conversation {
   id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  profileId String?
+  profile   Profile?  @relation(fields: [profileId], references: [id], onDelete: SetNull)
   title     String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
