@@ -21,5 +21,5 @@ export const deleteAccount = async () => {
         return { error: 'Failed to delete account' };
     }
 
-    await signOut({ redirectTo: '/' });
+    await signOut({ redirectTo: '/register' });
 };

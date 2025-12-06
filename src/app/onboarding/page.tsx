@@ -14,6 +14,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function OnboardingPage() {
     const { step, setStep } = useOnboardingStore();
+
+    // Reset step to 1 on mount
+    React.useEffect(() => {
+        setStep(1);
+    }, [setStep]);
+
     // Track [previous, current] step to calculate direction
     const [[prevStep, currentStep], setSteps] = React.useState([step, step]);
 

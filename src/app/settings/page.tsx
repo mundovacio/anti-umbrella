@@ -124,7 +124,7 @@ export default function SettingsPage() {
                 <div className="card bg-red-900/20 border border-red-900/50 shadow-xl mt-6">
                     <div className="card-body">
                         <h2 className="card-title text-red-400 mb-4">Zona de Peligro</h2>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center gap-2">
                             <div>
                                 <p className="text-gray-lighter font-medium">Eliminar cuenta</p>
                                 <p className="text-sm text-gray-light/60">Esta acción es irreversible</p>

@@ -49,13 +49,9 @@ export default function RegisterPage() {
                     <h2 className="text-2xl font-bold text-white mb-4">¡Registro Exitoso!</h2>
                     <p className="text-gray-300 mb-6">
                         <br />Tu cuenta ha sido creada exitosamente.
-                        <br />
-                        <Link href="/login" className="text-sky-blue hover:underline font-bold">
-                            Inicia sesión aquí
-                        </Link>
                     </p>
                     <Link href="/login" className="btn btn-primary w-full">
-                        Ir al Inicio de Sesión
+                        Iniciar Sesión
                     </Link>
                 </div>
             </div>
