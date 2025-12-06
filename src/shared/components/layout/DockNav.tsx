@@ -2,18 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { User, History, MessageSquarePlus, Users, Settings } from 'lucide-react';
+import { navItems } from '@/config/navigation';
 
 export const DockNav = () => {
     const pathname = usePathname();
-
-    const navItems = [
-        { href: '/user', icon: User, label: 'User' },
-        { href: '/history', icon: History, label: 'History' },
-        { href: '/new', icon: MessageSquarePlus, label: 'New' },
-        { href: '/profiles', icon: Users, label: 'Profiles' },
-        { href: '/settings', icon: Settings, label: 'Settings' },
-    ];
 
     return (
         <div className="dock dock-lg">

@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { MainLayout } from "@/shared/components/layout/MainLayout";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -18,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="antialiased grid grid-rows-[1fr_auto]">
-        <main>{children}</main>
+        <MainLayout>
+          <main>{children}</main>
+        </MainLayout>
         <DockNav />
       </body>
     </html>
