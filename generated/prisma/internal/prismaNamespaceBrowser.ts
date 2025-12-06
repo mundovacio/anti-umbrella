@@ -122,6 +122,7 @@ export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typ
 
 export const ProfileScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   name: 'name',
   relation: 'relation',
   gender: 'gender',

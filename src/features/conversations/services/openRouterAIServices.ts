@@ -7,7 +7,8 @@ const openrouter = createOpenRouter({
 });
 
 // Modelo por defecto: x-ai/grok-4.1-fast:free
-const DEFAULT_MODEL = 'x-ai/grok-4.1-fast:free';
+// Modelo por defecto: google/gemini-2.0-flash-exp:free
+const DEFAULT_MODEL = 'tngtech/deepseek-r1t2-chimera:free';
 
 /**
  * Obtiene una respuesta de OpenRouter usando el Vercel AI SDK

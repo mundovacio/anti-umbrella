@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Copy, Send, Sparkles } from 'lucide-react';
+import { Copy, Send, Sparkles, Clipboard, Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function NewConversationPage() {
@@ -10,7 +10,12 @@ export default function NewConversationPage() {
     const [generatedReply, setGeneratedReply] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
     const [settings, setSettings] = useState<any>(null); // Quick fix type, ideally proper type
+    const [showOriginalText, setShowOriginalText] = useState(true);
     const [showReply, setShowReply] = useState(true);
+    const [profiles, setProfiles] = useState<any[]>([]);
+    const [selectedProfileId, setSelectedProfileId] = useState<string>('');
+    const [isLoadingProfiles, setIsLoadingProfiles] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     React.useEffect(() => {
         // Dynamic import to avoid server-side issues if any, though getSettings is a server action safe to call.
@@ -22,8 +27,23 @@ export default function NewConversationPage() {
                 if (userSettings && !userSettings.showGeneratedReply) {
                     setShowReply(false);
                 }
+                if (userSettings) {
+                    setShowOriginalText(userSettings.showOriginalText ?? true);
+                }
             } catch (e) {
                 console.error("Failed to fetch settings", e);
+            }
+        });
+
+        // Load profiles
+        import('@/features/profiles/actions/get-profiles').then(async (mod) => {
+            try {
+                const userProfiles = await mod.getProfiles();
+                setProfiles(userProfiles);
+            } catch (e) {
+                console.error("Failed to fetch profiles", e);
+            } finally {
+                setIsLoadingProfiles(false);
             }
         });
     }, []);
@@ -31,8 +51,10 @@ export default function NewConversationPage() {
     const handleGenerate = async () => {
         if (!inputMessage.trim()) return;
 
+
         setIsGenerating(true);
         setGeneratedReply('');
+        setError(null);
 
         // Reset showReply state based on settings for new generation? 
         // Or keep user's manual toggle? Let's reset to preference.
@@ -50,7 +72,9 @@ export default function NewConversationPage() {
                 },
                 body: JSON.stringify({
                     message: inputMessage,
-                    profileContext: undefined
+                    profileContext: selectedProfileId
+                        ? JSON.stringify(profiles.find(p => p.id === selectedProfileId))
+                        : undefined
                 }),
             });
 
@@ -60,11 +84,11 @@ export default function NewConversationPage() {
             }
 
             const data = await response.json();
-            setGeneratedReply(data.reply);
+            setGeneratedReply(data.reply?.trim());
         } catch (error) {
             console.error('Error:', error);
-            setGeneratedReply(
-                'Lo siento, hubo un error al generar la respuesta. Por favor, intenta de nuevo.'
+            setError(
+                error instanceof Error ? error.message : 'Lo siento, hubo un error al generar la respuesta. Por favor, intenta de nuevo.'
             );
         } finally {
             setIsGenerating(false);
@@ -77,38 +101,107 @@ export default function NewConversationPage() {
 
     return (
         <div className="min-h-screen p-4 pb-25 flex flex-col items-center">
-            <div className="w-full max-w-2xl space-y-8 pt-6">
-                <header className="text-center space-y-2">
+            <div className="w-full max-w-2xl space-y-8">
+                <header className="space-y-2">
                     <h1 className="text-3xl font-semibold text-gray-lighter">Nueva Conversación</h1>
                     <p className="text-gray-400 text-sm">
                         Pega el mensaje difícil y deja que la IA te ayude a responder.
                     </p>
                 </header>
 
-                <div className="rounded-3xl p-6 space-y-6 shadow-2xl">
+                <div className="space-y-6">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-300 ml-1">Mensaje Recibido</label>
-                        <textarea
-                            value={inputMessage}
-                            onChange={(e) => setInputMessage(e.target.value)}
-                            placeholder="Ej: 'Necesito que vengas a trabajar el sábado...'"
-                            className="w-full h-40 bg-black/20 border border-white/10 rounded-2xl p-4 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-blue/50 focus:border-transparent transition-all resize-none"
-                        />
+                        {/* <label className="text-sm font-medium text-gray-300 ml-1">Mensaje Recibido</label> */}
+
+                        <div className="w-full h-35 bg-black/20 border border-white/10 border-dashed rounded-2xl p-4 flex flex-col items-center justify-center gap-4 group hover:border-sky-blue/30 transition-all">
+                            {inputMessage ? (
+                                <div className="text-center w-full h-full flex flex-col items-center justify-center">
+                                    <p className="text-sm text-gray-400 mb-2">Mensaje pegado ({inputMessage.length} caracteres)</p>
+                                    <button
+                                        onClick={() => setInputMessage('')}
+                                        className="btn btn-sm btn-ghost text-red-400 hover:bg-red-400/10"
+                                    >
+                                        Borrar y pegar otro
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={async () => {
+                                        try {
+                                            const text = await navigator.clipboard.readText();
+                                            setInputMessage(text);
+                                        } catch (err) {
+                                            console.error('Failed to read clipboard', err);
+                                            alert('No se pudo leer el portapapeles. Por favor, pega el texto manualmente activando la opción "Mostrar texto original" en ajustes.');
+                                        }
+                                    }}
+                                    className="btn btn-primary btn-outline gap-2"
+                                >
+                                    <Clipboard size={18} />
+                                    Pegar conversación
+                                </button>
+                            )}
+
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                checked={showOriginalText}
+                                onChange={(e) => setShowOriginalText(e.target.checked)}
+                                className="toggle toggle-primary"
+                            />
+                            <label className="text-sm text-gray-300">Mostrar texto original</label>
+                        </div>
+
+                        {/* texto original - readonly */}
+                        {(showOriginalText && inputMessage) && (
+                            <textarea
+                                value={inputMessage}
+                                onChange={(e) => setInputMessage(e.target.value)}
+                                placeholder="Ej: 'Necesito que vengas a trabajar el sábado...'"
+                                readOnly
+                                className="w-full h-40 bg-black/20 border border-white/10 rounded-2xl p-4 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-blue/50 focus:border-transparent transition-all resize-none"
+                            />
+                        )}
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-300 ml-1">Perfil (Opcional)</label>
+                        <div className="flex justify-between items-center">
+                            <label className="text-sm font-medium text-gray-300 ml-1">De quién se trata</label>
+                            <a href="/profiles" className="text-xs text-sky-blue hover:text-sky-300 transition-colors">
+                                Gestionar perfiles
+                            </a>
+                        </div>
                         <div className="relative">
-                            <select className="w-full bg-black/20 border border-white/10 rounded-xl p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-blue/50 appearance-none cursor-pointer">
-                                <option>Selecciona un perfil...</option>
-                                <option>Jefe Exigente</option>
-                                <option>Cliente Molesto</option>
-                            </select>
-                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </div>
+                            {isLoadingProfiles ? (
+                                <div className="w-full h-12 bg-black/20 border border-white/10 rounded-xl animate-pulse" />
+                            ) : profiles.length > 0 ? (
+                                <select
+                                    className="select w-full"
+                                    value={selectedProfileId}
+                                    onChange={(e) => setSelectedProfileId(e.target.value)}
+                                >
+                                    <option value="" disabled>Selecciona un perfil...</option>
+                                    {profiles.map(profile => (
+                                        <option key={profile.id} value={profile.id}>{profile.name} ({profile.relation})</option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <div className="p-4 border border-dashed border-white/10 rounded-xl bg-black/10 text-center space-y-3">
+                                    <p className="text-sm text-gray-400">No tienes perfiles guardados</p>
+                                    <a href="/profiles" className="btn btn-sm btn-outline btn-info">
+                                        <Plus size={16} />
+                                        Crear Nuevo Perfil
+                                    </a>
+                                </div>
+                            )}
+                            {profiles.length > 0 && (
+                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -126,6 +219,12 @@ export default function NewConversationPage() {
                             </div>
                         )}
                     </button>
+                    {error && (
+                        <div className="alert alert-error text-sm shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span>{error}</span>
+                        </div>
+                    )}
                 </div>
 
                 <AnimatePresence>

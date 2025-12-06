@@ -24,7 +24,11 @@ export async function POST(request: NextRequest) {
             'El tono debe sonar razonable y ser una barrera fría pero educada, eligiendo siempre la versión más breve. ' +
             'Asegúrate de que las respuestas no puedan ser usadas en contra del usuario. ' +
             'Si aplica, deja siempre constancia de la preocupación por el bienestar de los niños. ' +
-            'Si el mensaje requiere definir un dato concreto (hora, lugar) y no lo tienes, PREGUNTA al usuario qué poner.';
+            'Si el mensaje requiere definir un dato concreto (hora, lugar) y no lo tienes, PREGUNTA al usuario qué poner.\n\n' +
+            'IMPORTANTE: Tu respuesta debe contener ÚNICAMENTE el texto que el usuario debe enviar. ' +
+            'NO incluyas comillas rodeando la respuesta. ' +
+            'NO incluyas frases introductorias como "Aquí tienes la respuesta" o "Ok". ' +
+            'NO incluyas explicaciones. SOLO EL TEXTO DE LA RESPUESTA.';
 
         const systemMessage: ModelMessage = {
             role: 'system',

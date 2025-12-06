@@ -29,10 +29,6 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                         </label>
                     </div>
                     <div className="flex-1 px-2 mx-2 text-xl font-bold text-gray-lighter flex items-center gap-2">
-                        {/* You can add a small logo here if desired */}
-                        <div className="w-8 h-8 relative">
-                            <img src="/logo.png" alt="Umbrella Logo" className="object-contain" />
-                        </div>
                         Umbrella
                     </div>
                     <div className="flex-none hidden lg:block">
