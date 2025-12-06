@@ -3,7 +3,6 @@
 import * as z from 'zod';
 import { prisma } from '@/shared/lib/db';
 import { generatePasswordResetToken } from '@/shared/lib/tokens';
-import { sendPasswordResetEmail } from '@/shared/lib/mail';
 
 const ResetSchema = z.object({
     email: z.string().email({
@@ -29,7 +28,6 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
     }
 
     const passwordResetToken = await generatePasswordResetToken(email);
-    // await sendPasswordResetEmail(passwordResetToken.email, passwordResetToken.token);
 
     const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/new-password?token=${passwordResetToken.token}`;
 

@@ -3,8 +3,6 @@
 import * as z from 'zod';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/shared/lib/db';
-import { generateVerificationToken } from '@/shared/lib/tokens';
-import { sendVerificationEmail } from '@/shared/lib/mail';
 
 const RegisterSchema = z.object({
     email: z.string().email({
@@ -46,9 +44,6 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
             emailVerified: new Date(), // Auto-verify
         },
     });
-
-    // const verificationToken = await generateVerificationToken(email);
-    // await sendVerificationEmail(verificationToken.identifier, verificationToken.token);
 
     return { success: 'User created successfully!' };
 };
