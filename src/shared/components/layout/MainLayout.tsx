@@ -9,9 +9,17 @@ import { Menu, Zap } from 'lucide-react';
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
 
+    const drawerCheckboxRef = React.useRef<HTMLInputElement>(null);
+
+    const closeDrawer = () => {
+        if (drawerCheckboxRef.current) {
+            drawerCheckboxRef.current.checked = false;
+        }
+    };
+
     return (
         <div className="drawer">
-            <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+            <input id="my-drawer-3" type="checkbox" className="drawer-toggle" ref={drawerCheckboxRef} />
             <div className="drawer-content flex flex-col">
                 {/* Navbar */}
                 <div className="navbar w-full bg-base-100/50 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
@@ -59,6 +67,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                             <li key={href}>
                                 <Link
                                     href={href}
+                                    onClick={closeDrawer}
                                     className={`${isActive ? 'bg-primary/20 text-primary' : 'text-gray-300 hover:text-white'} flex items-center gap-3 py-3`}
                                 >
                                     <Icon className="w-5 h-5" />
