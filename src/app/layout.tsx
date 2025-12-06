@@ -5,6 +5,9 @@ import { DockNav } from "@/shared/components/layout/DockNav";
 export const metadata: Metadata = {
   title: "Umbrella",
   description: "Manage difficult conversations for you",
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({
