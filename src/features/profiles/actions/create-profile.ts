@@ -16,7 +16,7 @@ export type CreateProfileState = {
     message?: string;
 } | null;
 
-export async function createProfile(prevState: CreateProfileState, formData: FormData): Promise<CreateProfileState> {
+export async function createProfile(_prevState: CreateProfileState, formData: FormData): Promise<CreateProfileState> {
     const session = await auth();
 
     if (!session?.user?.id) {
@@ -33,7 +33,7 @@ export async function createProfile(prevState: CreateProfileState, formData: For
     const childrenInfo = formData.get('childrenInfo') as string;
     const legalStatus = formData.get('legalStatus') as string;
 
-    const errors: any = {};
+    const errors: Record<string, string[]> = {};
     if (!name) errors.name = ['El nombre es obligatorio'];
     if (!relation) errors.relation = ['La relación es obligatoria'];
     if (!gender) errors.gender = ['El género es obligatorio'];

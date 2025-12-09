@@ -1,14 +1,14 @@
 import { User, History, MessageSquarePlus, Users, Settings, Lightbulb } from 'lucide-react';
 
 export const navItems = [
-    { href: '/user', icon: User, label: 'User' },
-    { href: '/history', icon: History, label: 'History' },
-    { href: '/new', icon: MessageSquarePlus, label: 'New' },
-    { href: '/profiles', icon: Users, label: 'Profiles' },
-    { href: '/settings', icon: Settings, label: 'Settings' },
+    { href: '/user', icon: User, label: 'Cuenta' },
+    { href: '/history', icon: History, label: 'Historial' },
+    { href: '/new', icon: MessageSquarePlus, label: 'Nuevo' },
+    { href: '/profiles', icon: Users, label: 'Perfiles' },
+    { href: '/settings', icon: Settings, label: 'Ajustes' },
 ];
 
 export const drawerItems = [
     ...navItems,
-    { href: '/tips', icon: Lightbulb, label: 'Tips & Ayuda' },
+    { href: '/tips', icon: Lightbulb, label: 'Consejos & Ayuda' },
 ];

@@ -2,7 +2,7 @@ import type { NextAuthConfig } from 'next-auth';
 
 export const authConfig = {
     pages: {
-        signIn: '/onboarding',
+        signIn: '/login',
     },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
@@ -13,6 +13,7 @@ export const authConfig = {
             const isOnLogin = nextUrl.pathname.startsWith('/login');
             const isOnAuth = nextUrl.pathname.startsWith('/auth');
 
+            // Public pages
             if (isOnOnboarding || isOnVerifyEmail || isOnRegister || isOnLogin || isOnAuth) {
                 if (isLoggedIn) {
                     // If logged in and on auth pages, redirect to /new (or home)
@@ -21,9 +22,10 @@ export const authConfig = {
                 return true; // Allow access if not logged in
             }
 
+            // Protected pages
             if (!isLoggedIn) {
-                // Redirect unauthenticated users to onboarding
-                return Response.redirect(new URL('/onboarding', nextUrl));
+                // Redirect unauthenticated users to login
+                return Response.redirect(new URL('/login', nextUrl));
             }
 
             return true;

@@ -51,7 +51,7 @@ export const SettingsForm = ({ initialSettings }: { initialSettings: SettingsTyp
             <div className="max-w-4xl mx-auto">
                 <div className="flex items-center space-x-3 mb-6">
                     <SettingsIcon size={32} className="text-sky-blue" />
-                    <h1 className="text-3xl font-semibold text-gray-lighter">Configuración</h1>
+                    <h1 className="text-3xl font-semibold text-gray-lighter">Ajustes</h1>
                 </div>
 
                 <div className="card shadow-xl">
