@@ -109,8 +109,8 @@ export default function NewConversationPage() {
     };
 
     return (
-        <div className="min-h-screen p-4 pb-25 flex flex-col items-center">
-            <div className="w-full max-w-2xl space-y-8">
+        <div className="min-h-screen p-4 pb-25">
+            <div className="max-w-4xl mx-auto space-y-6">
                 <header className="space-y-2">
                     <h1 className="text-3xl font-semibold text-gray-lighter">Nueva Conversación</h1>
                     <p className="text-gray-400 text-sm">

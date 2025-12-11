@@ -3603,6 +3603,11 @@
       display: none;
     }
   }
+  .lg\:pb-0 {
+    @media (width >= 64rem) {
+      padding-bottom: calc(var(--spacing) * 0);
+    }
+  }
 }
 @layer base {
   :where(:root),:root:has(input.theme-controller[value=sunset]:checked),[data-theme=sunset] {

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Smartphone, Heart } from 'lucide-react';
+import { Smartphone } from 'lucide-react';
 
 export default function TipsPage() {
     return (
-        <div className="min-h-screen p-4 pb-25 md:pt-12">
-            <div className="max-w-3xl mx-auto space-y-12">
+        <div className="min-h-screen p-4 pb-25">
+            <div className="max-w-4xl mx-auto space-y-6">
 
                 {/* Header */}
                 <header className="space-y-4">

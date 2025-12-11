@@ -8,7 +8,7 @@ export const DockNav = () => {
     const pathname = usePathname();
 
     return (
-        <div className="dock dock-lg">
+        <div className="dock dock-lg lg:hidden bg-base-100/70 backdrop-blur-md border-t border-white/10">
             {navItems.map(({ href, icon: Icon, label }) => {
                 const isActive = pathname === href;
                 return (

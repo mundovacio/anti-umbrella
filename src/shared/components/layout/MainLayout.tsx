@@ -22,7 +22,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" ref={drawerCheckboxRef} />
             <div className="drawer-content flex flex-col">
                 {/* Navbar */}
-                <div className="navbar w-full bg-base-100/50 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
+                <div className="navbar w-full bg-base-100/70 backdrop-blur-md sticky top-0 z-50 border-b border-white/10">
                     <div className="flex-none lg:hidden">
                         <label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-square btn-ghost">
                             <Menu className="w-6 h-6 text-gray-lighter" />
