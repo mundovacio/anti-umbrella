@@ -32,11 +32,11 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
                         Umbrella
                     </div>
                     <div className="flex-none hidden lg:block">
-                        <ul className="menu menu-horizontal">
+                        <ul className="menu menu-horizontal gap-1.5">
                             {/* Navbar menu content here */}
                             {drawerItems.map(({ href, label }) => (
                                 <li key={href}>
-                                    <Link href={href} className={pathname === href ? 'active' : ''}>{label}</Link>
+                                    <Link href={href} className={pathname === href ? 'bg-primary/20 text-primary' : 'text-gray-300 hover:text-white'}>{label}</Link>
                                 </li>
                             ))}
                         </ul>

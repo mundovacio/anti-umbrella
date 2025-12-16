@@ -9,6 +9,10 @@ export const navItems = [
 ];
 
 export const drawerItems = [
-    ...navItems,
+    { href: '/new', icon: MessageSquarePlus, label: 'Nuevo' },
+    { href: '/profiles', icon: Users, label: 'Perfiles' },
+    { href: '/history', icon: History, label: 'Historial' },
+    { href: '/user', icon: User, label: 'Cuenta' },
+    { href: '/settings', icon: Settings, label: 'Ajustes' },
     { href: '/tips', icon: Lightbulb, label: 'Consejos & Ayuda' },
 ];
