@@ -20,7 +20,7 @@ export default async function SettingsPage() {
                 showGeneratedReply: settings.showGeneratedReply,
                 denyAppointments: settings.denyAppointments,
                 theme: settings.theme,
-                inputType: (settings as any).inputType,
+                inputType: settings.inputType,
             }}
         />
     );

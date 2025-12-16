@@ -4,15 +4,7 @@
 import React, { useState } from 'react';
 import { Copy, Send, Sparkles, Clipboard, Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-interface Settings {
-    showOriginalText: boolean;
-    showFriendlyTranslation: boolean;
-    showGeneratedReply: boolean;
-    denyAppointments: boolean;
-    inputType: string;
-    theme: string;
-}
+import { Settings } from '@prisma/client';
 
 interface Profile {
     id: string;
@@ -39,7 +31,7 @@ export default function NewConversationPage() {
             try {
                 const userSettings = await mod.getSettings();
                 console.log('Settings successfully loaded:', userSettings);
-                setSettings(userSettings as unknown as Settings);
+                setSettings(userSettings);
                 // If preference is to hide, start hidden
                 if (userSettings && !userSettings.showGeneratedReply) {
                     setShowReply(false);
@@ -47,7 +39,7 @@ export default function NewConversationPage() {
                 if (userSettings) {
                     setShowOriginalText(userSettings.showOriginalText ?? true);
                     // Safe access to inputType which might be missing in stale Prisma types
-                    if ((userSettings as any).inputType === 'textarea') {
+                    if (userSettings.inputType === 'textarea') {
                         setInputMode('write');
                     }
                 }
