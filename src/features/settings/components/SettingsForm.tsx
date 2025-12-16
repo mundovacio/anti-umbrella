@@ -10,6 +10,7 @@ type SettingsType = {
     showFriendlyTranslation: boolean;
     showGeneratedReply: boolean;
     denyAppointments: boolean;
+    inputType: string;
     theme: string;
 };
 
@@ -115,6 +116,27 @@ export const SettingsForm = ({ initialSettings }: { initialSettings: SettingsTyp
                                     checked={settings.denyAppointments}
                                     onChange={() => handleToggle('denyAppointments')}
                                 />
+                            </div>
+
+                            <div className="divider"></div>
+
+                            <div className="flex justify-between items-center">
+                                <div>
+                                    <p className="text-gray-lighter font-medium">Método de entrada por defecto</p>
+                                    <p className="text-sm text-gray-light/60">{settings.inputType === 'textarea' ? 'Escribir texto' : 'Botón para pegar texto'}</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        className="toggle toggle-primary"
+                                        checked={settings.inputType === 'textarea'}
+                                        onChange={async () => {
+                                            const newValue = settings.inputType === 'textarea' ? 'button' : 'textarea';
+                                            setSettings((prev) => ({ ...prev, inputType: newValue }));
+                                            await updateSettings({ inputType: newValue });
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

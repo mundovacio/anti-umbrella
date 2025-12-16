@@ -11,9 +11,9 @@ export async function getSettings(): Promise<Settings> {
         throw new Error('Unauthorized');
     }
 
-    let settings = await prisma.settings.findUnique({
-        where: { userId: session.user.id },
-    });
+    // Use raw query to fetch to ensure we get new columns even if Prisma Client is stale
+    const rawResult = await prisma.$queryRaw<Settings[]>`SELECT * FROM "Settings" WHERE "userId" = ${session.user.id}`;
+    let settings = rawResult[0];
 
     if (!settings) {
         settings = await prisma.settings.create({

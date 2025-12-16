@@ -47,6 +47,7 @@ model Settings {
   showFriendlyTranslation Boolean @default(true)
   showGeneratedReply      Boolean @default(true)
   denyAppointments        Boolean @default(false)
+  inputType               String  @default("button") // "button" | "textarea"
   user                    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
