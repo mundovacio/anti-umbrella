@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { getSettings } from './get-settings';
 import { updateSettings } from './update-settings';
+import { Settings } from '@prisma/client';
 
 // Mock dependnecies
 vi.mock('@/shared/lib/db', () => ({
@@ -23,6 +24,7 @@ vi.mock('next/cache', () => ({
 
 import { prisma } from '@/shared/lib/db';
 import { auth } from '@/features/auth/config/auth';
+import { Mock } from 'vitest';
 
 describe('Settings Actions', () => {
     beforeEach(() => {
@@ -31,13 +33,13 @@ describe('Settings Actions', () => {
 
     describe('getSettings', () => {
         it('should throw error if user is unauthenticated', async () => {
-            (auth as any).mockResolvedValue(null);
+            (auth as unknown as Mock).mockResolvedValue(null);
             await expect(getSettings()).rejects.toThrow('Unauthorized');
         });
 
         it('should return existing settings if found', async () => {
-            (auth as any).mockResolvedValue({ user: { id: 'user1' } });
-            (prisma.settings.findUnique as any).mockResolvedValue({ userId: 'user1', theme: 'dark' });
+            (auth as unknown as Mock).mockResolvedValue({ user: { id: 'user1' } });
+            (prisma.settings.findUnique as unknown as Mock).mockResolvedValue({ userId: 'user1', theme: 'dark' } as unknown as Settings);
 
             const result = await getSettings();
             expect(result).toEqual({ userId: 'user1', theme: 'dark' });
@@ -45,9 +47,9 @@ describe('Settings Actions', () => {
         });
 
         it('should create default settings if not found', async () => {
-            (auth as any).mockResolvedValue({ user: { id: 'user1' } });
-            (prisma.settings.findUnique as any).mockResolvedValue(null);
-            (prisma.settings.create as any).mockResolvedValue({ userId: 'user1', theme: 'light' });
+            (auth as unknown as Mock).mockResolvedValue({ user: { id: 'user1' } });
+            (prisma.settings.findUnique as unknown as Mock).mockResolvedValue(null);
+            (prisma.settings.create as unknown as Mock).mockResolvedValue({ userId: 'user1', theme: 'light' } as unknown as Settings);
 
             const result = await getSettings();
             expect(result).toEqual({ userId: 'user1', theme: 'light' });
@@ -57,14 +59,14 @@ describe('Settings Actions', () => {
 
     describe('updateSettings', () => {
         it('should return error if unauthorized', async () => {
-            (auth as any).mockResolvedValue(null);
+            (auth as unknown as Mock).mockResolvedValue(null);
             const result = await updateSettings({});
             expect(result).toEqual({ error: 'Unauthorized' });
         });
 
         it('should update settings and return success', async () => {
-            (auth as any).mockResolvedValue({ user: { id: 'user1' } });
-            (prisma.settings.upsert as any).mockResolvedValue({});
+            (auth as unknown as Mock).mockResolvedValue({ user: { id: 'user1' } });
+            (prisma.settings.upsert as unknown as Mock).mockResolvedValue({} as unknown as Settings);
 
             const result = await updateSettings({ theme: 'dracula' });
             expect(result).toEqual({ success: true });

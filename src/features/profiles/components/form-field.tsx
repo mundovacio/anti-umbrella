@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface FormFieldProps {
     label: string;
@@ -26,11 +26,13 @@ export function FormField({
     const [value, setValue] = useState(defaultValue);
     const [isDirty, setIsDirty] = useState(false);
     const [limitError, setLimitError] = useState(false);
+    const [prevError, setPrevError] = useState(error);
 
     // Reset dirty state when server error changes (new submission)
-    useEffect(() => {
+    if (error !== prevError) {
+        setPrevError(error);
         setIsDirty(false);
-    }, [error]);
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setValue(e.target.value);

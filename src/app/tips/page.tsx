@@ -31,7 +31,7 @@ export default function TipsPage() {
                                 <span className="text-white font-medium">Responde, aunque sea brevemente.</span> Aunque tu instinto sea ignorar, legalmente suele ser más favorable mantener el flujo de comunicación, especialmente si hay menores implicados. No hace falta que te extiendas; una respuesta neutra y funcional es suficiente.
                             </p>
                             <p>
-                                <span className="text-white font-medium">Usa "Umbrella".</span> No temas que se note un cambio en tu tono. Apoyarte en herramientas que filtren tus emociones no tiene ninguna consecuencia negativa para ti; al contrario, demuestra tu voluntad de mantener una comunicación civilizada.
+                                <span className="text-white font-medium">Usa &quot;Umbrella&quot;.</span> No temas que se note un cambio en tu tono. Apoyarte en herramientas que filtren tus emociones no tiene ninguna consecuencia negativa para ti; al contrario, demuestra tu voluntad de mantener una comunicación civilizada.
                             </p>
                             <p>
                                 <span className="text-white font-medium">No te lo tomes como algo personal.</span> Sus reacciones agresivas o manipuladoras hablan de su estado interno, no de tu valía ni de tu realidad.

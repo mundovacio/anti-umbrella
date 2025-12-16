@@ -5,14 +5,28 @@ import React, { useState } from 'react';
 import { Copy, Send, Sparkles, Clipboard, Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+interface Settings {
+    showOriginalText: boolean;
+    showFriendlyTranslation: boolean;
+    showGeneratedReply: boolean;
+    denyAppointments: boolean;
+    theme: string;
+}
+
+interface Profile {
+    id: string;
+    name: string;
+    relation: string;
+}
+
 export default function NewConversationPage() {
     const [inputMessage, setInputMessage] = useState('');
     const [generatedReply, setGeneratedReply] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
-    const [settings, setSettings] = useState<any>(null); // Quick fix type, ideally proper type
+    const [settings, setSettings] = useState<Settings | null>(null);
     const [showOriginalText, setShowOriginalText] = useState(true);
     const [showReply, setShowReply] = useState(true);
-    const [profiles, setProfiles] = useState<any[]>([]);
+    const [profiles, setProfiles] = useState<Profile[]>([]);
     const [selectedProfileId, setSelectedProfileId] = useState<string>('');
     const [isLoadingProfiles, setIsLoadingProfiles] = useState(true);
     const [error, setError] = useState<string | null>(null);

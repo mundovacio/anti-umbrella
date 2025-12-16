@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Trash2, MessageSquare, User, Calendar, Search, Filter, Eye, EyeOff, Layers, ChevronDown, ChevronRight, X } from 'lucide-react';
+import { Trash2, User, Calendar, Search, Eye, EyeOff, Layers, ChevronDown, ChevronRight } from 'lucide-react';
 import { getConversations } from '@/features/history/actions/get-conversations';
 import { deleteConversation } from '@/features/history/actions/delete-conversation';
 import { getProfiles } from '@/features/profiles/actions/get-profiles';
@@ -9,11 +9,11 @@ import { getProfiles } from '@/features/profiles/actions/get-profiles';
 type Conversation = {
     id: string;
     createdAt: Date;
-    profile?: {
+    profile: {
         id: string;
         name: string;
         relation: string;
-    };
+    } | null;
     messages: {
         role: string;
         content: string;
@@ -52,8 +52,8 @@ export default function HistoryPage() {
                     getConversations(),
                     getProfiles()
                 ]);
-                setConversations(convs as any);
-                setProfiles(profs as any);
+                setConversations(convs);
+                setProfiles(profs);
                 // Expand all groups by default could be done here if we calculated groups first
             } catch (error) {
                 console.error('Failed to fetch data:', error);
@@ -293,7 +293,7 @@ export default function HistoryPage() {
                                                             <div className="space-y-3">
                                                                 {showOriginal && (
                                                                     <div className="bg-black/20 rounded-lg p-3 border border-white/5">
-                                                                        <p className="text-sm text-gray-300 line-clamp-2 italic">"{userMsg}"</p>
+                                                                        <p className="text-sm text-gray-300 line-clamp-2 italic">&quot;{userMsg}&quot;</p>
                                                                     </div>
                                                                 )}
 
