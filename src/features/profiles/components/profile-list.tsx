@@ -18,7 +18,7 @@ export function ProfileList({ profiles, onEdit }: ProfileListProps) {
             {profiles.map((profile) => (
                 <div
                     key={profile.id}
-                    className="card shadow-lg group bg-base-200/50 border border-white/5"
+                    className="card shadow-lg group bg-base-200 border border-white/5"
                 >
                     <div className="card-body">
                         <div className="flex justify-between items-start">

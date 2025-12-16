@@ -38,9 +38,9 @@ export default async function UserPage() {
     return (
         <div className="min-h-screen p-4 pb-25">
             <div className="max-w-4xl mx-auto">
-                <h1 className="text-3xl font-semibold text-gray-lighter mb-6">Mi Perfil</h1>
+                <h1 className="text-3xl font-semibold text-gray-lighter mb-6">Cuenta</h1>
 
-                <div className="card shadow-xl bg-base-200/50 border border-white/5">
+                <div className="card shadow-xl bg-base-200 border border-white/5">
                     <div className="card-body">
                         <div className="flex items-center space-x-4 mb-6">
                             <div className="w-20 h-20 rounded-full bg-sky-blue/20 flex items-center justify-center">

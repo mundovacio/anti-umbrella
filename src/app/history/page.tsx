@@ -137,7 +137,7 @@ export default function HistoryPage() {
                 </header>
 
                 {/* --- Filters & Controls Bar --- */}
-                <div className="bg-base-200/50 p-4 rounded-2xl border border-white/5 space-y-4">
+                <div className="bg-base-200 p-4 rounded-2xl border border-white/5 space-y-4">
 
                     {/* Top Row: Search & Filters */}
                     <div className="flex flex-col md:flex-row gap-4">

@@ -3,6 +3,7 @@
 import { auth } from '@/features/auth/config/auth';
 import { prisma } from '@/shared/lib/db';
 import { revalidatePath } from 'next/cache';
+import { profileSchema } from '../schema';
 
 export type UpdateProfileState = {
     errors?: {
@@ -29,27 +30,25 @@ export async function updateProfile(
         };
     }
 
-    const name = formData.get('name') as string;
-    const relation = formData.get('relation') as string;
-    const gender = formData.get('gender') as string;
-    const communicationFrequency = formData.get('communicationFrequency') as string;
-    const communicationChannel = formData.get('communicationChannel') as string;
-    const childrenInfo = formData.get('childrenInfo') as string;
-    const legalStatus = formData.get('legalStatus') as string;
+    const formDataObj = Object.fromEntries(formData.entries());
+    const validatedFields = profileSchema.safeParse(formDataObj);
 
-    const errors: any = {};
-    if (!name) errors.name = ['El nombre es obligatorio'];
-    if (!relation) errors.relation = ['La relación es obligatoria'];
-    if (!gender) errors.gender = ['El género es obligatorio'];
-    if (!communicationChannel) errors.communicationChannel = ['El canal de comunicación es obligatorio'];
-    if (!childrenInfo) errors.childrenInfo = ['La información de vinculación es obligatoria'];
-
-    if (Object.keys(errors).length > 0) {
+    if (!validatedFields.success) {
         return {
-            errors,
-            message: 'Faltan campos obligatorios',
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Faltan campos obligatorios o son inválidos',
         };
     }
+
+    const {
+        name,
+        relation,
+        gender,
+        communicationFrequency,
+        communicationChannel,
+        childrenInfo,
+        legalStatus,
+    } = validatedFields.data;
 
     try {
         // Verify ownership before updating

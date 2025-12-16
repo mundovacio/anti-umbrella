@@ -1,9 +1,8 @@
-'use client';
-
 import React, { useState } from 'react';
-import { updateProfile } from '../actions/update-profile';
 import { createProfile } from '../actions/create-profile';
+import { updateProfile } from '../actions/update-profile';
 import { Profile, ProfileFormState } from '../types';
+import { FormField } from './form-field';
 
 interface ProfileFormProps {
     initialData?: Profile | null;
@@ -11,17 +10,28 @@ interface ProfileFormProps {
     onSuccess: () => void;
 }
 
+const LIMITS = {
+    name: 50,
+    relation: 50,
+    gender: 50,
+    communicationFrequency: 100,
+    communicationChannel: 50,
+    childrenInfo: 500,
+    legalStatus: 500,
+};
+
 export function ProfileForm({ initialData, onClose, onSuccess }: ProfileFormProps) {
     const [createState, setCreateState] = useState<ProfileFormState | null>(null);
 
     return (
-        <div className="card shadow-xl mb-6">
-            <div className="card-body">
+        <div className="card shadow-xl mb-6 bg-base-200 border border-white/5">
+            <div className="card-body p-4">
                 <h2 className="card-title ">
                     {initialData ? 'Editar Perfil' : 'Nuevo perfil del agresor/a'}
                 </h2>
 
                 <form
+                    noValidate
                     action={async (formData) => {
                         let result;
                         if (initialData) {
@@ -37,190 +47,116 @@ export function ProfileForm({ initialData, onClose, onSuccess }: ProfileFormProp
                     }}
                     className="space-y-4"
                 >
-                    {createState?.message && createState.message !== 'success' && (
-                        <div className="alert alert-error text-sm">
-                            {createState.message}
-                        </div>
-                    )}
+                    <FormField
+                        label="Nombre"
+                        name="name"
+                        defaultValue={initialData?.name}
+                        placeholder="ej: jefe, ex, etc."
+                        error={createState?.errors?.name}
+                        maxLength={LIMITS.name}
+                        required
+                    />
 
-                    <div>
-                        <label className="label" htmlFor="name">
-                            <span className="label-text text-gray-light">Nombre</span>
-                        </label>
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            defaultValue={initialData?.name}
-                            placeholder="ej: jefe, ex, etc."
-                            className="input input-bordered w-full"
-                            required
-                        />
-                        {createState?.errors?.name && (
-                            <label className="label">
-                                <span className="label-text-alt text-error">
-                                    {createState.errors.name[0]}
-                                </span>
-                            </label>
-                        )}
-                    </div>
+                    <FormField
+                        label="Relación"
+                        name="relation"
+                        defaultValue={initialData?.relation}
+                        placeholder="Selecciona o escribe una relación"
+                        options={[
+                            "Pareja",
+                            "Ex-pareja",
+                            "Padre/Madre",
+                            "Jefe",
+                            "Compañero de trabajo",
+                            "Amigo/a",
+                            "Familiar"
+                        ]}
+                        error={createState?.errors?.relation}
+                        maxLength={LIMITS.relation}
+                        required
+                    />
 
-                    <div>
-                        <label className="label" htmlFor="relation">
-                            <span className="label-text text-gray-light">Relación</span>
-                        </label>
-                        <input
-                            id="relation"
-                            name="relation"
-                            list="relationships"
-                            defaultValue={initialData?.relation}
-                            className="input w-full"
-                            placeholder="Selecciona o escribe una relación"
-                            required
-                        />
-                        <datalist id="relationships">
-                            <option value="Pareja" />
-                            <option value="Ex-pareja" />
-                            <option value="Padre/Madre" />
-                            <option value="Jefe" />
-                            <option value="Compañero de trabajo" />
-                            <option value="Amigo/a" />
-                            <option value="Familiar" />
-                        </datalist>
-                        {createState?.errors?.relation && (
-                            <label className="label">
-                                <span className="label-text-alt text-error">
-                                    {createState.errors.relation[0]}
-                                </span>
-                            </label>
-                        )}
-                    </div>
+                    <FormField
+                        label="Género"
+                        name="gender"
+                        defaultValue={initialData?.gender || ''}
+                        placeholder="Selecciona o escribe un género"
+                        options={[
+                            "Hombre",
+                            "Mujer",
+                            "No binario",
+                            "Otro"
+                        ]}
+                        error={createState?.errors?.gender}
+                        maxLength={LIMITS.gender}
+                        required
+                    />
 
-                    <div>
-                        <label className="label" htmlFor="gender">
-                            <span className="label-text text-gray-light">Género</span>
-                        </label>
-                        <input
-                            id="gender"
-                            name="gender"
-                            list="genders"
-                            defaultValue={initialData?.gender || ''}
-                            className="input input-bordered w-full text-gray-lighter"
-                            placeholder="Selecciona o escribe un género"
-                            required
-                        />
-                        <datalist id="genders">
-                            <option value="Hombre" />
-                            <option value="Mujer" />
-                            <option value="No binario" />
-                            <option value="Otro" />
-                        </datalist>
-                        {createState?.errors?.gender && (
-                            <label className="label">
-                                <span className="label-text-alt text-error">
-                                    {createState.errors.gender[0]}
-                                </span>
-                            </label>
-                        )}
-                    </div>
+                    <FormField
+                        label="Frecuencia de comunicación"
+                        name="communicationFrequency"
+                        defaultValue={initialData?.communicationFrequency || ''}
+                        placeholder="ej: Diaria, semanal"
+                        error={createState?.errors?.communicationFrequency}
+                        maxLength={LIMITS.communicationFrequency}
+                    />
 
-                    <div>
-                        <label className="label" htmlFor="communicationFrequency">
-                            <span className="label-text text-gray-light">
-                                Frecuencia de comunicación (opcional)
-                            </span>
-                        </label>
-                        <input
-                            id="communicationFrequency"
-                            name="communicationFrequency"
-                            type="text"
-                            defaultValue={initialData?.communicationFrequency || ''}
-                            placeholder="ej: Diaria, semanal"
-                            className="input w-full"
-                        />
-                    </div>
+                    <FormField
+                        label="Canal de comunicación"
+                        name="communicationChannel"
+                        defaultValue={initialData?.communicationChannel || ''}
+                        placeholder="Selecciona o escribe un canal"
+                        options={[
+                            "WhatsApp",
+                            "Email",
+                            "Presencial",
+                            "Teléfono",
+                            "Videollamada"
+                        ]}
+                        error={createState?.errors?.communicationChannel}
+                        maxLength={LIMITS.communicationChannel}
+                        required
+                    />
 
-                    <div>
-                        <label className="label" htmlFor="communicationChannel">
-                            <span className="label-text text-gray-light">
-                                Canal de comunicación
-                            </span>
-                        </label>
-                        <input
-                            id="communicationChannel"
-                            name="communicationChannel"
-                            list="communicationChannels"
-                            defaultValue={initialData?.communicationChannel || ''}
-                            className="input w-full"
-                            placeholder="Selecciona o escribe un canal"
-                            required
-                        />
-                        <datalist id="communicationChannels">
-                            <option value="WhatsApp" />
-                            <option value="Email" />
-                            <option value="Presencial" />
-                            <option value="Teléfono" />
-                            <option value="Videollamada" />
-                        </datalist>
-                        {createState?.errors?.communicationChannel && (
-                            <label className="label">
-                                <span className="label-text-alt text-error">
-                                    {createState.errors.communicationChannel[0]}
-                                </span>
-                            </label>
-                        )}
-                    </div>
+                    <FormField
+                        label="Información de vinculación (Hijos, bienes en común, etc.)"
+                        name="childrenInfo"
+                        defaultValue={initialData?.childrenInfo || ''}
+                        placeholder="ej: 2 hijos, 5 y 8 años"
+                        type="textarea"
+                        error={createState?.errors?.childrenInfo}
+                        maxLength={LIMITS.childrenInfo}
+                        required
+                    />
 
-                    <div>
-                        <label className="label" htmlFor="childrenInfo">
-                            <span className="label-text text-gray-light">
-                                Información importante que os vincula
-                            </span>
-                        </label>
-                        <textarea
-                            id="childrenInfo"
-                            name="childrenInfo"
-                            defaultValue={initialData?.childrenInfo || ''}
-                            placeholder="ej: 2 hijos, 5 y 8 años"
-                            className="textarea w-full"
-                            required
-                        />
-                        {createState?.errors?.childrenInfo && (
-                            <label className="label">
-                                <span className="label-text-alt text-error">
-                                    {createState.errors.childrenInfo[0]}
-                                </span>
-                            </label>
-                        )}
-                    </div>
+                    <FormField
+                        label="Situación Legal"
+                        name="legalStatus"
+                        defaultValue={initialData?.legalStatus || ''}
+                        placeholder="ej: Sentencia de custodia, orden de alejamiento"
+                        type="textarea"
+                        error={createState?.errors?.legalStatus}
+                        maxLength={LIMITS.legalStatus}
+                    />
 
-                    <div>
-                        <label className="label" htmlFor="legalStatus">
-                            <span className="label-text text-gray-light">
-                                Información legal relevante (opcional)
-                            </span>
-                        </label>
-                        <textarea
-                            id="legalStatus"
-                            name="legalStatus"
-                            defaultValue={initialData?.legalStatus || ''}
-                            placeholder="ej: Sentencia de custodia, orden de alejamiento"
-                            className="textarea w-full"
-                        />
-                    </div>
-
-                    <div className="card-actions justify-end">
+                    <div className="card-actions justify-end mt-4">
                         <button
                             type="button"
-                            onClick={onClose}
                             className="btn btn-ghost"
+                            onClick={onClose}
                         >
                             Cancelar
                         </button>
                         <button type="submit" className="btn btn-primary">
-                            Guardar Perfil
+                            {initialData ? 'Actualizar' : 'Guardar'}
                         </button>
                     </div>
+
+                    {createState?.message && createState.message !== 'success' && (
+                        <div className="alert alert-error mt-4">
+                            <span>{createState.message}</span>
+                        </div>
+                    )}
                 </form>
             </div>
         </div>

@@ -17,6 +17,14 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
+    React.useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        const drawerContent = document.querySelector('.drawer-content');
+        if (drawerContent) {
+            drawerContent.scrollTop = 0;
+        }
+    }, [pathname]);
+
     return (
         <div className="drawer">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" ref={drawerCheckboxRef} />

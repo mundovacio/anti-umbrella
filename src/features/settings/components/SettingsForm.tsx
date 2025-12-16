@@ -54,7 +54,7 @@ export const SettingsForm = ({ initialSettings }: { initialSettings: SettingsTyp
                     <h1 className="text-3xl font-semibold text-gray-lighter">Ajustes</h1>
                 </div>
 
-                <div className="card shadow-xl bg-base-200/50 border border-white/5">
+                <div className="card shadow-xl bg-base-200 border border-white/5">
                     <div className="card-body">
                         <h2 className="card-title text-gray-lighter mb-4">Preferencias de Visualización</h2>
 
@@ -120,7 +120,7 @@ export const SettingsForm = ({ initialSettings }: { initialSettings: SettingsTyp
                     </div>
                 </div>
 
-                <div className="card shadow-xl mt-6 bg-base-200/50 border border-white/5">
+                <div className="card shadow-xl mt-6 bg-base-200 border border-white/5">
                     <div className="card-body">
                         <h2 className="card-title text-gray-lighter mb-4">Apariencia</h2>
                         <div className="flex justify-between items-center">

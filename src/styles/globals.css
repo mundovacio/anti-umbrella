@@ -3,4 +3,6 @@
   themes: nord, sunset --default;
 }
 
- 
+ .label {
+  white-space: initial;
+ }
